@@ -1,0 +1,57 @@
+[
+ {
+  "id": "01",
+  "fr": "Tout le monde dit « souverain ». Mais qui l'a vérifié ?",
+  "en": "Everyone says “sovereign”. But who has checked?"
+ },
+ {
+  "id": "02",
+  "fr": "Voici Sigillum : une note de A à E pour la souveraineté d'un outil d'IA, avec une preuve pour chaque réponse.",
+  "en": "This is Sigillum: a grade from A to E for the sovereignty of an AI tool, with proof behind every answer."
+ },
+ {
+  "id": "03",
+  "fr": "Cinq questions. Où vit le modèle ? Où vont les données ? Que se passe-t-il sans internet ? Qui d'autre est dans la boucle ? Peut-on le vérifier ?",
+  "en": "Five questions. Where does the model live? Where does the data go? What happens without internet? Who else is in the loop? Can it be verified?"
+ },
+ {
+  "id": "04",
+  "fr": "Chaque réponse renvoie à une trace : un fichier, une ligne, que chacun peut ouvrir. Sans preuve, le sceau dit : inconnu.",
+  "en": "Every answer points to a trace: a file, a line, that anyone can open. Without proof, the seal says: unknown."
+ },
+ {
+  "id": "05",
+  "fr": "Prenons un assistant scolaire. Sa documentation affirme : tout tourne en local, aucune donnée ne sort de l'école.",
+  "en": "Take a school assistant. Its documentation says: everything runs locally, no data leaves the school."
+ },
+ {
+  "id": "06",
+  "fr": "Apertus lit cette affirmation et la confronte au code. Les traces montrent l'inverse : des statistiques d'usage partent chez Streamlit, aux États-Unis.",
+  "en": "Apertus reads this claim and checks it against the code. The traces show the opposite: usage statistics go to Streamlit, in the United States."
+ },
+ {
+  "id": "07",
+  "fr": "Le maillon faible décide : D. Mais le rapport est aussi une feuille de route. Trois corrections, et l'équipe passe à B.",
+  "en": "The weakest link decides: D. But the report is also a roadmap. Three fixes, and the team moves up to B."
+ },
+ {
+  "id": "08",
+  "fr": "Le verdict est expliqué en mots simples, en allemand, en français, en italien et en romanche, et chaque ligne renvoie à sa preuve. La note, elle, ne dépend jamais du modèle : ce sont les preuves qui décident.",
+  "en": "The verdict is explained in plain words, in German, French, Italian and Romansh, and every line points to its proof. The grade never depends on the model: the evidence decides."
+ },
+ {
+  "id": "09",
+  "fr": "Nous avons appliqué le sceau à l'écosystème Apertus public, sans nommer personne. Vingt-six projets : aucun n'obtient A ni B, et près de trois sur quatre embarquent une télémétrie active par défaut.",
+  "en": "We applied the seal to the public Apertus ecosystem, without naming anyone. Twenty-six projects: none gets an A or a B, and nearly three in four ship telemetry switched on by default."
+ },
+ {
+  "id": "10",
+  "fr": "Et nous avons commencé par nous-mêmes. Premier examen de Sigillum : D, faute de licence. Corrigé : A. Nos limites sont publiées.",
+  "en": "And we started with ourselves. Sigillum's first examination: D, for lack of a licence. Fixed: A. Our limits are published."
+ },
+ {
+  "id": "11",
+  "fr": "Sigillum tourne hors ligne, avec Apertus en local, et le prouve. La souveraineté ne se déclare pas : elle se prouve.",
+  "en": "Sigillum runs offline, with Apertus locally, and proves it. Sovereignty is not declared: it is proven."
+ }
+]

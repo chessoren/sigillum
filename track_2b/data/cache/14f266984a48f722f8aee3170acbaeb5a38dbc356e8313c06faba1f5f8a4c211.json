@@ -1,0 +1,1 @@
+{"model": "apertus-v1.5-8b", "content": "{\"verdicts\": [{\"claim\": \"Tout tourne en local : aucune donnée ne sort de l'école.\", \"contradicted\": true, \"evidence\": [\"E04\", \"E06\", \"E07\"], \"shows\": \"Data is sent to external hosts (cdn.jsdelivr.net, data.streamlit.io) and model weights are fetched from the internet.\"}]}", "at": "2026-10-16T06:10:53"}

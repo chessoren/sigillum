@@ -1,0 +1,16 @@
+services:
+  apertus:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    command: ["-m", "/models/apertus-v1.5-8b-text-q4_k_m.gguf", "--host", "0.0.0.0", "--port", "8081"]
+    volumes: ["./models:/models:ro"]
+    networks: [internal]
+  app:
+    build: .
+    environment:
+      LLM_BASE_URL: http://apertus:8081/v1
+      LLM_NAME: swiss-ai/Apertus-v1.5-8B
+    ports: ["8080:8080"]
+    networks: [internal]
+networks:
+  internal:
+    internal: true

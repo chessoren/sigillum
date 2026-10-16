@@ -1,0 +1,28 @@
+# make run            -> Sigillum, using the endpoint in LLM_BASE_URL if set,
+#                        otherwise a local Apertus served by llama.cpp (profile "local")
+# make offline-test   -> the whole test suite and every sample audit, with networking disabled
+services:
+  sigillum:
+    build: .
+    image: sigillum:1.0
+    ports: ["8080:8080"]
+    environment:
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://apertus:8081/v1}
+      LLM_API_KEY: ${LLM_API_KEY:-none}
+      LLM_NAME: ${LLM_NAME:-swiss-ai/Apertus-v1.5-8B}
+      SIGILLUM_AUDIT_ROOT: /audit
+    volumes:
+      - ${AUDIT_DIR:-./data/samples}:/audit:ro
+
+  apertus:
+    profiles: ["local"]
+    image: ghcr.io/ggml-org/llama.cpp:server
+    command: ["-m", "/models/apertus-v1.5-8b-text-q4_k_m.gguf", "--host", "0.0.0.0", "--port", "8081",
+              "-c", "8192", "--alias", "swiss-ai/Apertus-v1.5-8B", "--jinja"]
+    volumes: ["./models:/models:ro"]
+
+  offline-test:
+    profiles: ["test"]
+    image: sigillum:1.0
+    network_mode: none
+    command: ["sh", "-c", "python -m unittest discover -s /app/src/tests -v && for p in /app/data/samples/*/; do python -m sigillum audit $$p --no-llm --out /tmp/offline; done"]

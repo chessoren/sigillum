@@ -1,0 +1,43 @@
+1
+00:00:00,250 --> 00:00:03,436
+Everyone says “sovereign”. But who has checked?
+
+2
+00:00:04,140 --> 00:00:10,853
+This is Sigillum: a grade from A to E for the sovereignty of an AI tool, with proof behind every answer.
+
+3
+00:00:11,550 --> 00:00:20,196
+Five questions. Where does the model live? Where does the data go? What happens without internet? Who else is in the loop? Can it be verified?
+
+4
+00:00:20,899 --> 00:00:30,016
+Every answer points to a trace: a file, a line, that anyone can open. Without proof, the seal says: unknown.
+
+5
+00:00:30,719 --> 00:00:37,616
+Take a school assistant. Its documentation says: everything runs locally, no data leaves the school.
+
+6
+00:00:38,320 --> 00:00:47,854
+Apertus reads this claim and checks it against the code. The traces show the opposite: usage statistics go to Streamlit, in the United States.
+
+7
+00:00:48,549 --> 00:00:55,994
+The weakest link decides: D. But the report is also a roadmap. Three fixes, and the team moves up to B.
+
+8
+00:00:56,689 --> 00:01:06,747
+Apertus explains the verdict in plain words, in German, French, Italian and Romansh. The grade never depends on the model: the evidence decides.
+
+9
+00:01:07,450 --> 00:01:18,708
+We applied the seal to the public Apertus ecosystem, without naming anyone. Twenty-six projects: none gets an A or a B, and nearly three in four ship telemetry switched on by default.
+
+10
+00:01:19,409 --> 00:01:28,239
+And we started with ourselves. Sigillum's first examination: D, for lack of a licence. Fixed: A. Our limits are published.
+
+11
+00:01:28,939 --> 00:01:37,168
+Sigillum runs offline, with Apertus locally, and proves it. Sovereignty is not declared: it is proven.

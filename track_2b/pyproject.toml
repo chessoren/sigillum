@@ -1,0 +1,10 @@
+[project]
+name = "sigillum"
+version = "1.0.0"
+description = "A sovereignty seal for AI tools, from A to E, with proof behind every answer."
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = []  # standard library only
+
+[project.scripts]
+sigillum = "sigillum.cli:main"

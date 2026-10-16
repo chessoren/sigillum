@@ -1,0 +1,623 @@
+{
+ "sigillum": {
+  "version": "1.0.0",
+  "method": "1.0",
+  "registry": "2026.10.16"
+ },
+ "project": {
+  "name": "civicgpt",
+  "commit": null,
+  "files_scanned": 4,
+  "code_files": 3,
+  "excluded": [],
+  "dependencies": 5
+ },
+ "examined_at": "2026-10-16T06:10:57+00:00",
+ "expires_at": "2027-01-14T06:10:57+00:00",
+ "grade": "E",
+ "label": {
+  "en": "Dependent on foreign services",
+  "fr": "Dépendant de l'étranger",
+  "de": "Vom Ausland abhängig",
+  "it": "Dipendente dall'estero",
+  "rm": "Dependent da l'exteriur"
+ },
+ "weakest": [
+  1,
+  2,
+  3,
+  4
+ ],
+ "unknown": [],
+ "questions": [
+  {
+   "q": 1,
+   "key": "model",
+   "level": "E",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q1_CLOSED_FOREIGN",
+     "level": "E",
+     "evidence": [
+      "E05"
+     ],
+     "params": {
+      "hosts": "api.openai.com (OpenAI, US)"
+     }
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_SERVE_LOCAL",
+     "q": 1,
+     "evidence": [
+      "E05"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 2,
+   "key": "data",
+   "level": "E",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q2_CONTENT_FOREIGN",
+     "level": "E",
+     "evidence": [
+      "E05"
+     ],
+     "params": {
+      "hosts": "api.openai.com (OpenAI, US)"
+     }
+    },
+    {
+     "code": "Q2_META_FOREIGN",
+     "level": "D",
+     "evidence": [
+      "E03",
+      "E04",
+      "E06",
+      "E07"
+     ],
+     "params": {
+      "hosts": "api-js.mixpanel.com (Mixpanel, US), fonts.googleapis.com (Google Fonts, US), mixpanel.com (Mixpanel, US), vercel-insights.com (Vercel Analytics, US)"
+     }
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_KEEP_CONTENT",
+     "q": 2,
+     "evidence": [
+      "E05"
+     ],
+     "params": {}
+    },
+    {
+     "code": "FIX_REMOVE_ANALYTICS",
+     "q": 2,
+     "evidence": [
+      "E03"
+     ],
+     "params": {}
+    },
+    {
+     "code": "FIX_SELFHOST_FONTS",
+     "q": 2,
+     "evidence": [
+      "E04"
+     ],
+     "params": {}
+    },
+    {
+     "code": "FIX_REMOVE_ANALYTICS",
+     "q": 2,
+     "evidence": [
+      "E06"
+     ],
+     "params": {}
+    },
+    {
+     "code": "FIX_REMOVE_ANALYTICS",
+     "q": 2,
+     "evidence": [
+      "E07"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 3,
+   "key": "offline",
+   "level": "E",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q3_STOPS",
+     "level": "E",
+     "evidence": [
+      "E05"
+     ],
+     "params": {
+      "hosts": "api.openai.com (OpenAI, US)"
+     }
+    },
+    {
+     "code": "Q3_FONTS",
+     "level": "C",
+     "evidence": [
+      "E04"
+     ],
+     "params": {
+      "hosts": "fonts.googleapis.com (Google Fonts, US)"
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 4,
+   "key": "third_parties",
+   "level": "E",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q4_TRACKERS",
+     "level": "E",
+     "evidence": [
+      "E06",
+      "E07",
+      "E03"
+     ],
+     "params": {
+      "hosts": "mixpanel.com (Mixpanel, US), vercel-insights.com (Vercel Analytics, US), api-js.mixpanel.com (Mixpanel, US)"
+     }
+    },
+    {
+     "code": "Q4_VENDOR",
+     "level": "D",
+     "evidence": [
+      "E08"
+     ],
+     "params": {
+      "hosts": "api.openai.com (OpenAI, US)"
+     }
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_REMOVE_ANALYTICS",
+     "q": 4,
+     "evidence": [
+      "E06",
+      "E07"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 5,
+   "key": "verifiable",
+   "level": "D",
+   "proof": "none",
+   "reasons": [
+    {
+     "code": "Q5_NO_LICENSE",
+     "level": "D",
+     "evidence": [],
+     "params": {}
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_LICENSE",
+     "q": 5,
+     "evidence": [],
+     "params": {}
+    }
+   ]
+  }
+ ],
+ "evidence": [
+  {
+   "q": 1,
+   "signal": "MODEL_CLOSED",
+   "kind": "trace",
+   "file": "src/ask.ts",
+   "line": 6,
+   "snippet": "const r = await client.chat.completions.create({ model: \"gpt-4o\", messages: [{ role: \"user\", content: question }] });",
+   "detail": "gpt-4o",
+   "id": "E01"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 3,
+   "snippet": "Fictional example. \"The sovereign AI assistant for public administrations.\"",
+   "detail": "SOVEREIGN",
+   "id": "E02"
+  },
+  {
+   "q": 2,
+   "signal": "HOST",
+   "kind": "trace",
+   "file": "src/layout.tsx",
+   "line": 4,
+   "snippet": "mixpanel.init(\"civicgpt-token\", { api_host: \"https://api-js.mixpanel.com\" });",
+   "host": "api-js.mixpanel.com",
+   "operator": "Mixpanel",
+   "jurisdiction": "US",
+   "category": "analytics",
+   "id": "E03"
+  },
+  {
+   "q": 2,
+   "signal": "HOST",
+   "kind": "trace",
+   "file": "src/layout.tsx",
+   "line": 7,
+   "snippet": "return (<html><head><link href=\"https://fonts.googleapis.com/css2?family=Inter&display=swap\" rel=\"stylesheet\" /></head>",
+   "host": "fonts.googleapis.com",
+   "operator": "Google Fonts",
+   "jurisdiction": "US",
+   "category": "fonts",
+   "id": "E04"
+  },
+  {
+   "q": 2,
+   "signal": "SDK_DEFAULT",
+   "kind": "trace",
+   "file": "src/ask.ts",
+   "line": 1,
+   "snippet": "import OpenAI from \"openai\";",
+   "host": "api.openai.com",
+   "operator": "OpenAI",
+   "jurisdiction": "US",
+   "category": "llm-closed",
+   "detail": "OpenAI SDK — default endpoint api.openai.com",
+   "id": "E05"
+  },
+  {
+   "q": 4,
+   "signal": "TRACKER_DEP",
+   "kind": "trace",
+   "file": "package.json",
+   "line": 0,
+   "snippet": "mixpanel-browser",
+   "host": "mixpanel.com",
+   "operator": "Mixpanel",
+   "jurisdiction": "US",
+   "category": "analytics",
+   "detail": "Mixpanel dependency",
+   "id": "E06"
+  },
+  {
+   "q": 4,
+   "signal": "TRACKER_DEP",
+   "kind": "trace",
+   "file": "package.json",
+   "line": 0,
+   "snippet": "@vercel/analytics",
+   "host": "vercel-insights.com",
+   "operator": "Vercel Analytics",
+   "jurisdiction": "US",
+   "category": "analytics",
+   "detail": "Vercel Analytics dependency",
+   "id": "E07"
+  },
+  {
+   "q": 4,
+   "signal": "VENDOR_DEP",
+   "kind": "trace",
+   "file": "package.json",
+   "line": 0,
+   "snippet": "openai",
+   "host": "api.openai.com",
+   "operator": "OpenAI",
+   "jurisdiction": "US",
+   "category": "llm-closed",
+   "detail": "OpenAI SDK dependency",
+   "id": "E08"
+  },
+  {
+   "q": 5,
+   "signal": "SOURCE",
+   "kind": "artifact",
+   "line": 0,
+   "detail": "3 code/config file(s) readable",
+   "id": "E09"
+  }
+ ],
+ "gaps": [
+  {
+   "claim": "E02",
+   "tag": "SOVEREIGN",
+   "evidence": [
+    "E03",
+    "E05",
+    "E06",
+    "E07"
+   ],
+   "source": "rule"
+  }
+ ],
+ "fixes": [
+  {
+   "code": "FIX_SERVE_LOCAL",
+   "q": 1,
+   "evidence": [
+    "E05"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_KEEP_CONTENT",
+   "q": 2,
+   "evidence": [
+    "E05"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_REMOVE_ANALYTICS",
+   "q": 2,
+   "evidence": [
+    "E03"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_SELFHOST_FONTS",
+   "q": 2,
+   "evidence": [
+    "E04"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_LICENSE",
+   "q": 5,
+   "evidence": [],
+   "params": {}
+  }
+ ],
+ "claims": {
+  "apertus": [],
+  "rejected": 1
+ },
+ "explanations": {
+  "fr": {
+   "source": "apertus",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Le modèle d'IA est un service fermé, à l'étranger, fourni par OpenAI (États-Unis).",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vos questions et vos documents quittent la Suisse, hébergés par OpenAI (États-Unis).",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Sans internet, tout s'arrête, car OpenAI (États-Unis) fournit le service.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Des outils de suivi observent les utilisateurs, fournis par Mixpanel (États-Unis) et Vercel Analytics (États-Unis).",
+     "evidence": [
+      "E06",
+      "E07",
+      "E03"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Sans licence ouverte, personne ne peut réutiliser le code.",
+     "evidence": []
+    }
+   ]
+  },
+  "de": {
+   "source": "apertus",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Das KI-Modell ist ein geschlossener Dienst von OpenAI in den Vereinigten Staaten.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Ihre Fragen und Dokumente verlassen die Schweiz und werden von OpenAI in den Vereinigten Staaten verarbeitet.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Ohne Internet steht alles still, denn OpenAI in den Vereinigten Staaten ist nicht erreichbar.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Tracking-Werkzeuge von Mixpanel und Vercel Analytics aus den Vereinigten Staaten beobachten die Nutzenden.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E03"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Ohne offene Lizenz darf niemand den Code wiederverwenden.",
+     "evidence": []
+    }
+   ]
+  },
+  "it": {
+   "source": "apertus",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il modello di IA è un servizio chiuso, all'estero. OpenAI (Stati Uniti)",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Le vostre domande e i vostri documenti lasciano la Svizzera.",
+     "evidence": [
+      "E05"
+     ],
+     "template": true
+    },
+    {
+     "q": 3,
+     "text": "Senza internet, tutto si ferma. OpenAI (Stati Uniti)",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Strumenti di tracciamento osservano gli utenti. Mixpanel (Stati Uniti), Vercel Analytics (Stati Uniti)",
+     "evidence": [
+      "E06",
+      "E07",
+      "E03"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Senza licenza aperta, nessuno può riutilizzare il codice.",
+     "evidence": []
+    }
+   ]
+  },
+  "rm": {
+   "source": "apertus",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il model d'IA è en servetsch serrà a l'exteriur.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vossas dumondas e Voss documents bandunan la Svizra.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Senza internet sa ferma tut.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Utensils da survegliaziun observan las utilisadras e ils utilisaders.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E03"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Senza licenza averta na po nagin duvrar il code.",
+     "evidence": []
+    }
+   ]
+  },
+  "en": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "The AI model is a closed service abroad.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Your questions and documents leave Switzerland.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Without internet, everything stops.",
+     "evidence": [
+      "E05"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Tracking tools observe the users.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E03"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Without an open licence, nobody may reuse the code.",
+     "evidence": []
+    }
+   ]
+  }
+ },
+ "apertus": {
+  "used": true,
+  "model": "apertus-v1.5-8b",
+  "endpoint": {
+   "host": "127.0.0.1",
+   "jurisdiction": "LOCAL",
+   "operator": "Local machine or private network"
+  },
+  "calls": 0,
+  "seconds": 0.0,
+  "answers_rejected_by_checks": 1,
+  "rejections": [
+   {
+    "task": "explain:it",
+    "reason": "wrong language",
+    "answer": "Le vostre domande e i vostri documenti lasciano la Svizzera. OpenAI (Stati Uniti)"
+   }
+  ]
+ },
+ "seal": {
+  "sha256": "bf1f82108222a1ddcdca63d6f4738c0fb9bb557efbdcae439e8ba28ddb379da9",
+  "id": "bf1f82108222"
+ },
+ "id": "civicgpt-20261016-061057"
+}

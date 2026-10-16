@@ -1,0 +1,70 @@
+{
+ "sigillum": "1.0.0",
+ "generated_at": "2026-10-16T05:12:16+00:00",
+ "scope": "public Hugging Face Spaces mentioning Apertus (static analysis of the code, no request to running apps)",
+ "count": 26,
+ "grades": {
+  "A": 0,
+  "B": 0,
+  "C": 4,
+  "D": 11,
+  "E": 11
+ },
+ "per_question": {
+  "1": {
+   "unknown": 7,
+   "D": 11,
+   "A": 7,
+   "B": 1
+  },
+  "2": {
+   "A": 6,
+   "E": 11,
+   "D": 9
+  },
+  "3": {
+   "unknown": 5,
+   "E": 11,
+   "C": 8,
+   "D": 2
+  },
+  "4": {
+   "unknown": 4,
+   "D": 19,
+   "A": 3
+  },
+  "5": {
+   "C": 3,
+   "D": 20,
+   "B": 3
+  }
+ },
+ "pct": {
+  "foreign_llm": 42,
+  "telemetry_on": 73,
+  "offline": 0,
+  "claim_contradicted": 4
+ },
+ "top_foreign": [
+  {
+   "operator": "Gradio usage analytics",
+   "count": 17
+  },
+  {
+   "operator": "Hugging Face Inference Providers",
+   "count": 11
+  },
+  {
+   "operator": "jsDelivr",
+   "count": 3
+  },
+  {
+   "operator": "Streamlit usage stats",
+   "count": 3
+  },
+  {
+   "operator": "Unknown operator",
+   "count": 3
+  }
+ ]
+}

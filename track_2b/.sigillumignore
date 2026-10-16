@@ -1,0 +1,10 @@
+# Paths Sigillum skips when it examines itself. Published in every report.
+data/       # example projects, audit outputs and caches — not part of the runtime
+src/tests/  # test fixtures simulate foreign calls on purpose
+scripts/    # research script run once, with internet, to build the community aggregate — never at runtime
+docs/       # pitch deck and video assets
+models/     # model weights (binary), downloaded at build time
+src/sigillum/collect.py   # detection patterns (regular expressions naming SDKs and hosts) — data; this module only reads files
+src/sigillum/registry.py  # list of domain names — data, no network call
+src/sigillum/i18n.py      # texts of the seal — data
+src/sigillum/web/method.html  # documentation of the method — describes SDKs and switches by name

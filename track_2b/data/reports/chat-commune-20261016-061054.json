@@ -1,0 +1,466 @@
+{
+ "sigillum": {
+  "version": "1.0.0",
+  "method": "1.0",
+  "registry": "2026.10.16"
+ },
+ "project": {
+  "name": "chat-commune",
+  "commit": null,
+  "files_scanned": 4,
+  "code_files": 2,
+  "excluded": [],
+  "dependencies": 0
+ },
+ "examined_at": "2026-10-16T06:10:54+00:00",
+ "expires_at": "2027-01-14T06:10:54+00:00",
+ "grade": "C",
+ "label": {
+  "en": "Partial or unproven",
+  "fr": "Partiel ou non prouvé",
+  "de": "Teilweise oder unbewiesen",
+  "it": "Parziale o non dimostrato",
+  "rm": "Parzial u betg cumprovà"
+ },
+ "weakest": [
+  1,
+  3,
+  4,
+  5
+ ],
+ "unknown": [
+  4
+ ],
+ "questions": [
+  {
+   "q": 1,
+   "key": "model",
+   "level": "C",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q1_CONFIGURABLE",
+     "level": "C",
+     "evidence": [
+      "E01"
+     ],
+     "params": {}
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_LOCAL_RECIPE",
+     "q": 1,
+     "evidence": [
+      "E01"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 2,
+   "key": "data",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q2_NOTHING_LEAVES",
+     "level": "A",
+     "evidence": [],
+     "params": {
+      "files": 2
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 3,
+   "key": "offline",
+   "level": "C",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q3_REMOTE_MODEL",
+     "level": "C",
+     "evidence": [
+      "E01"
+     ],
+     "params": {}
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 4,
+   "key": "third_parties",
+   "level": "unknown",
+   "proof": "none",
+   "reasons": [
+    {
+     "code": "Q4_OPAQUE",
+     "level": "unknown",
+     "evidence": [
+      "E04",
+      "E05"
+     ],
+     "params": {}
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_MANIFEST",
+     "q": 4,
+     "evidence": [
+      "E04"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 5,
+   "key": "verifiable",
+   "level": "C",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q5_LICENSE_ONLY",
+     "level": "C",
+     "evidence": [
+      "E06"
+     ],
+     "params": {
+      "license": "Apache-2.0"
+     }
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_CONTAINER",
+     "q": 5,
+     "evidence": [],
+     "params": {}
+    }
+   ]
+  }
+ ],
+ "evidence": [
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "server.py",
+   "line": 4,
+   "snippet": "BASE = os.environ.get(\"LLM_BASE_URL\", \"\")",
+   "detail": "LLM_BASE_URL",
+   "id": "E01"
+  },
+  {
+   "q": 2,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 3,
+   "snippet": "Exemple fictif. Assistant pour les guichets communaux, hébergé en Suisse :",
+   "detail": "SWISS_HOSTING",
+   "id": "E02"
+  },
+  {
+   "q": 2,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 4,
+   "snippet": "aucune donnée ne quitte le pays. Le fournisseur livre une interface compilée.",
+   "detail": "NO_DATA_EXIT",
+   "id": "E03"
+  },
+  {
+   "q": 4,
+   "signal": "OPAQUE",
+   "kind": "trace",
+   "file": "static/vendor-ui.min.js",
+   "line": 0,
+   "detail": "binary or minified file that cannot be audited",
+   "id": "E04"
+  },
+  {
+   "q": 4,
+   "signal": "NO_MANIFEST",
+   "kind": "absence",
+   "line": 0,
+   "detail": "no dependency manifest: components cannot be enumerated",
+   "id": "E05"
+  },
+  {
+   "q": 5,
+   "signal": "LICENSE",
+   "kind": "artifact",
+   "file": "LICENSE",
+   "line": 0,
+   "detail": "Apache-2.0",
+   "id": "E06"
+  },
+  {
+   "q": 5,
+   "signal": "SOURCE",
+   "kind": "artifact",
+   "line": 0,
+   "detail": "2 code/config file(s) readable",
+   "id": "E07"
+  }
+ ],
+ "gaps": [],
+ "fixes": [
+  {
+   "code": "FIX_LOCAL_RECIPE",
+   "q": 1,
+   "evidence": [
+    "E01"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_MANIFEST",
+   "q": 4,
+   "evidence": [
+    "E04"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_CONTAINER",
+   "q": 5,
+   "evidence": [],
+   "params": {}
+  }
+ ],
+ "claims": {
+  "apertus": [
+   {
+    "id": "C1",
+    "quote": "Exemple fictif. Assistant pour les guichets communaux, hébergé en Suisse : aucune donnée ne quitte le pays.",
+    "topic": "data_flow",
+    "q": 2
+   }
+  ],
+  "rejected": 0
+ },
+ "explanations": {
+  "fr": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "On ne peut pas vérifier où tourne le modèle : cela dépend de l'installation.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vos questions ne quittent pas la machine.",
+     "evidence": []
+    },
+    {
+     "q": 3,
+     "text": "Sans internet, le service est dégradé.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Certains composants ne peuvent pas être audités : inconnu.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Le code est lisible, mais on ne peut pas le reconstruire à l'identique.",
+     "evidence": [
+      "E06"
+     ]
+    }
+   ]
+  },
+  "de": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Wo das Modell läuft, lässt sich nicht prüfen: Es hängt von der Installation ab.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Ihre Fragen verlassen den Rechner nicht.",
+     "evidence": []
+    },
+    {
+     "q": 3,
+     "text": "Ohne Internet ist der Dienst eingeschränkt.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Einige Komponenten lassen sich nicht prüfen: unbekannt.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Der Code ist lesbar, lässt sich aber nicht identisch nachbauen.",
+     "evidence": [
+      "E06"
+     ]
+    }
+   ]
+  },
+  "it": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Non si può verificare dove gira il modello: dipende dall'installazione.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Le vostre domande non lasciano il computer.",
+     "evidence": []
+    },
+    {
+     "q": 3,
+     "text": "Senza internet, il servizio è ridotto.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Alcuni componenti non si possono verificare: sconosciuto.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Il codice è leggibile, ma non si può ricostruire in modo identico.",
+     "evidence": [
+      "E06"
+     ]
+    }
+   ]
+  },
+  "rm": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "I na sa lascha betg verifitgar nua ch'il model funcziuna: quai dependa da l'installaziun.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vossas dumondas na bandunan betg il computer.",
+     "evidence": []
+    },
+    {
+     "q": 3,
+     "text": "Senza internet è il servetsch restrenschì.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Tschertas cumponentas na sa laschan betg verifitgar: nunenconuschent.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Il code è legibel, ma el na sa lascha betg reconstruir identic.",
+     "evidence": [
+      "E06"
+     ]
+    }
+   ]
+  },
+  "en": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "We cannot verify where the model runs: it depends on how it is installed.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Your questions never leave the machine.",
+     "evidence": []
+    },
+    {
+     "q": 3,
+     "text": "Without internet, the service is degraded.",
+     "evidence": [
+      "E01"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Some components cannot be audited: unknown.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "The code is readable, but it cannot be rebuilt identically.",
+     "evidence": [
+      "E06"
+     ]
+    }
+   ]
+  }
+ },
+ "apertus": {
+  "used": true,
+  "model": "apertus-v1.5-8b",
+  "endpoint": {
+   "host": "127.0.0.1",
+   "jurisdiction": "LOCAL",
+   "operator": "Local machine or private network"
+  },
+  "calls": 1,
+  "seconds": 3.5,
+  "answers_rejected_by_checks": 0,
+  "rejections": []
+ },
+ "seal": {
+  "sha256": "be28e16e37f948a7bc151f041ae4b3dbb0ca520771bf30770907f81948570897",
+  "id": "be28e16e37f9"
+ },
+ "id": "chat-commune-20261016-061054"
+}

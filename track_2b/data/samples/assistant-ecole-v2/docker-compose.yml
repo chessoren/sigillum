@@ -1,0 +1,10 @@
+services:
+  apertus:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    command: ["-m", "/models/apertus-v1.5-8b-text-q4_k_m.gguf", "--host", "0.0.0.0"]
+    volumes: ["./models:/models:ro"]
+  app:
+    build: .
+    environment:
+      LLM_BASE_URL: http://apertus:8080/v1
+    ports: ["8501:8501"]

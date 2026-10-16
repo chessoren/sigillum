@@ -1,0 +1,586 @@
+{
+ "sigillum": {
+  "version": "1.0.0",
+  "method": "1.0",
+  "registry": "2026.10.16"
+ },
+ "project": {
+  "name": "gemeinde-assistent",
+  "commit": null,
+  "files_scanned": 7,
+  "code_files": 6,
+  "excluded": [],
+  "dependencies": 3
+ },
+ "examined_at": "2026-10-16T06:10:53+00:00",
+ "expires_at": "2027-01-14T06:10:53+00:00",
+ "grade": "A",
+ "label": {
+  "en": "Fully sovereign",
+  "fr": "Pleinement souverain",
+  "de": "Vollständig souverän",
+  "it": "Pienamente sovrano",
+  "rm": "Cumplainamain suveran"
+ },
+ "weakest": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "unknown": [],
+ "questions": [
+  {
+   "q": 1,
+   "key": "model",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q1_LOCAL",
+     "level": "A",
+     "evidence": [
+      "E06",
+      "E07",
+      "E08"
+     ],
+     "params": {
+      "serving": "llama.cpp"
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 2,
+   "key": "data",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q2_NOTHING_LEAVES",
+     "level": "A",
+     "evidence": [
+      "E04",
+      "E05"
+     ],
+     "params": {
+      "files": 6
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 3,
+   "key": "offline",
+   "level": "A",
+   "proof": "reproducible",
+   "reasons": [
+    {
+     "code": "Q3_OFFLINE_PROVEN",
+     "level": "A",
+     "evidence": [
+      "E10",
+      "E11",
+      "E06"
+     ],
+     "params": {}
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 4,
+   "key": "third_parties",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q4_NONE",
+     "level": "A",
+     "evidence": [],
+     "params": {
+      "deps": 3
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 5,
+   "key": "verifiable",
+   "level": "A",
+   "proof": "reproducible",
+   "reasons": [
+    {
+     "code": "Q5_REPRODUCIBLE",
+     "level": "A",
+     "evidence": [
+      "E14",
+      "E12",
+      "E15",
+      "E17"
+     ],
+     "params": {
+      "license": "Apache-2.0"
+     }
+    }
+   ],
+   "fixes": []
+  }
+ ],
+ "evidence": [
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "app/main.py",
+   "line": 5,
+   "snippet": "LLM_BASE_URL = os.environ[\"LLM_BASE_URL\"]  # e.g. http://apertus:8081/v1 on the municipal server",
+   "detail": "LLM_BASE_URL",
+   "id": "E01"
+  },
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "app/main.py",
+   "line": 11,
+   "snippet": "r = httpx.post(f\"{LLM_BASE_URL}/chat/completions\", json={",
+   "detail": "LLM_BASE_URL",
+   "id": "E02"
+  },
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 10,
+   "snippet": "LLM_BASE_URL: http://apertus:8081/v1",
+   "detail": "LLM_BASE_URL",
+   "id": "E03"
+  },
+  {
+   "q": 1,
+   "signal": "LOCAL_ENDPOINT",
+   "kind": "trace",
+   "file": "app/main.py",
+   "line": 5,
+   "snippet": "LLM_BASE_URL = os.environ[\"LLM_BASE_URL\"]  # e.g. http://apertus:8081/v1 on the municipal server",
+   "host": "apertus:8081",
+   "operator": "Local machine or private network",
+   "jurisdiction": "LOCAL",
+   "category": "local",
+   "id": "E04"
+  },
+  {
+   "q": 1,
+   "signal": "LOCAL_ENDPOINT",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 10,
+   "snippet": "LLM_BASE_URL: http://apertus:8081/v1",
+   "host": "apertus:8081",
+   "operator": "Local machine or private network",
+   "jurisdiction": "LOCAL",
+   "category": "local",
+   "id": "E05"
+  },
+  {
+   "q": 1,
+   "signal": "LOCAL_SERVING",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 3,
+   "snippet": "image: ghcr.io/ggml-org/llama.cpp:server",
+   "detail": "llama.cpp",
+   "id": "E06"
+  },
+  {
+   "q": 1,
+   "signal": "MODEL_OPEN",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 2,
+   "snippet": "apertus:",
+   "detail": "apertus",
+   "id": "E07"
+  },
+  {
+   "q": 1,
+   "signal": "MODEL_OPEN",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 4,
+   "snippet": "command: [\"-m\", \"/models/apertus-v1.5-8b-text-q4_k_m.gguf\", \"--host\", \"0.0.0.0\", \"--port\", \"8081\"]",
+   "detail": "apertus",
+   "id": "E08"
+  },
+  {
+   "q": 1,
+   "signal": "MODEL_OPEN",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 10,
+   "snippet": "LLM_BASE_URL: http://apertus:8081/v1",
+   "detail": "apertus",
+   "id": "E09"
+  },
+  {
+   "q": 3,
+   "signal": "OFFLINE_TEST",
+   "kind": "artifact",
+   "file": "Makefile",
+   "line": 2,
+   "snippet": "docker compose up -d && docker run --rm --network none app pytest tests/",
+   "detail": "runs with networking disabled",
+   "id": "E10"
+  },
+  {
+   "q": 3,
+   "signal": "OFFLINE_TEST",
+   "kind": "artifact",
+   "file": "docker-compose.yml",
+   "line": 16,
+   "snippet": "internal: true",
+   "detail": "runs with networking disabled",
+   "id": "E11"
+  },
+  {
+   "q": 5,
+   "signal": "CONTAINER",
+   "kind": "artifact",
+   "file": "Dockerfile",
+   "line": 0,
+   "detail": "reproducible container build",
+   "id": "E12"
+  },
+  {
+   "q": 5,
+   "signal": "CONTAINER",
+   "kind": "artifact",
+   "file": "docker-compose.yml",
+   "line": 0,
+   "detail": "reproducible container build",
+   "id": "E13"
+  },
+  {
+   "q": 5,
+   "signal": "LICENSE",
+   "kind": "artifact",
+   "file": "LICENSE",
+   "line": 0,
+   "detail": "Apache-2.0",
+   "id": "E14"
+  },
+  {
+   "q": 5,
+   "signal": "LOCKFILE",
+   "kind": "artifact",
+   "file": "requirements.txt",
+   "line": 0,
+   "detail": "all requirements pinned with ==",
+   "id": "E15"
+  },
+  {
+   "q": 5,
+   "signal": "SOURCE",
+   "kind": "artifact",
+   "line": 0,
+   "detail": "6 code/config file(s) readable",
+   "id": "E16"
+  },
+  {
+   "q": 5,
+   "signal": "TESTS",
+   "kind": "artifact",
+   "file": "tests/test_offline.py",
+   "line": 0,
+   "detail": "1 test file(s)",
+   "id": "E17"
+  }
+ ],
+ "gaps": [],
+ "fixes": [],
+ "claims": {
+  "apertus": [
+   {
+    "id": "C1",
+    "quote": "Answers residents' questions about municipal services with Apertus, served on the municipality's own server.",
+    "topic": "model_location",
+    "q": 1
+   },
+   {
+    "id": "C2",
+    "quote": "Runs fully offline; see `make offline-test`.",
+    "topic": "offline",
+    "q": 3
+   },
+   {
+    "id": "C3",
+    "quote": "see `make offline-test`",
+    "topic": "offline",
+    "q": 3
+   },
+   {
+    "id": "C4",
+    "quote": "municipality's own server",
+    "topic": "model_location",
+    "q": 1
+   }
+  ],
+  "rejected": 0
+ },
+ "explanations": {
+  "fr": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Le modèle d'IA tourne sur un ordinateur que l'organisation contrôle.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E08"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vos questions ne quittent pas la machine.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Il continue de marcher sans internet, et c'est testé.",
+     "evidence": [
+      "E10",
+      "E11",
+      "E06"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Aucun service tiers ni suivi d'usage n'a été trouvé.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Tout est public, et n'importe qui peut le revérifier.",
+     "evidence": [
+      "E14",
+      "E12",
+      "E15",
+      "E17"
+     ]
+    }
+   ]
+  },
+  "de": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Das KI-Modell läuft auf einem Computer, den die Organisation selbst kontrolliert.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E08"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Ihre Fragen verlassen den Rechner nicht.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Es funktioniert auch ohne Internet, und das ist getestet.",
+     "evidence": [
+      "E10",
+      "E11",
+      "E06"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Es wurde weder ein Drittanbieter noch ein Nutzungs-Tracking gefunden.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Alles ist öffentlich und kann von allen nachgeprüft werden.",
+     "evidence": [
+      "E14",
+      "E12",
+      "E15",
+      "E17"
+     ]
+    }
+   ]
+  },
+  "it": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il modello di IA gira su un computer controllato dall'organizzazione.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E08"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Le vostre domande non lasciano il computer.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Continua a funzionare senza internet, ed è testato.",
+     "evidence": [
+      "E10",
+      "E11",
+      "E06"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Non è stato trovato nessun servizio terzo né tracciamento d'uso.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Tutto è pubblico e chiunque può ricontrollarlo.",
+     "evidence": [
+      "E14",
+      "E12",
+      "E15",
+      "E17"
+     ]
+    }
+   ]
+  },
+  "rm": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il model d'IA funcziuna sin in computer che l'organisaziun controllescha.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E08"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vossas dumondas na bandunan betg il computer.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "El funcziuna er senza internet, e quai è testà.",
+     "evidence": [
+      "E10",
+      "E11",
+      "E06"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "I n'è vegnì chattà nagin servetsch da terzs e nagina survegliaziun dal diever.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Tut è public e mintgin po controllar quai danovamain.",
+     "evidence": [
+      "E14",
+      "E12",
+      "E15",
+      "E17"
+     ]
+    }
+   ]
+  },
+  "en": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "The AI model runs on a computer the organisation controls.",
+     "evidence": [
+      "E06",
+      "E07",
+      "E08"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Your questions never leave the machine.",
+     "evidence": [
+      "E04",
+      "E05"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "It keeps working without internet, and this is tested.",
+     "evidence": [
+      "E10",
+      "E11",
+      "E06"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "No third-party service or usage tracking was found.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Everything is public, and anyone can re-check it.",
+     "evidence": [
+      "E14",
+      "E12",
+      "E15",
+      "E17"
+     ]
+    }
+   ]
+  }
+ },
+ "apertus": {
+  "used": true,
+  "model": "apertus-v1.5-8b",
+  "endpoint": {
+   "host": "127.0.0.1",
+   "jurisdiction": "LOCAL",
+   "operator": "Local machine or private network"
+  },
+  "calls": 0,
+  "seconds": 0.0,
+  "answers_rejected_by_checks": 0,
+  "rejections": []
+ },
+ "seal": {
+  "sha256": "5f81d01518be794acbfc963141e53089322e5f3e0655637e42c3fc95aad1dd40",
+  "id": "5f81d01518be"
+ },
+ "id": "gemeinde-assistent-20261016-061053"
+}

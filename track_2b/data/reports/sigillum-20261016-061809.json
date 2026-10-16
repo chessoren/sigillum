@@ -1,0 +1,812 @@
+{
+ "sigillum": {
+  "version": "1.0.0",
+  "method": "1.0",
+  "registry": "2026.10.16"
+ },
+ "project": {
+  "name": "sigillum",
+  "commit": null,
+  "files_scanned": 23,
+  "code_files": 19,
+  "excluded": [
+   {
+    "pattern": "src/sigillum/i18n.py",
+    "reason": "texts of the seal — data"
+   },
+   {
+    "pattern": "src/sigillum/registry.py",
+    "reason": "list of domain names — data, no network call"
+   },
+   {
+    "pattern": "src/sigillum/collect.py",
+    "reason": "detection patterns (regular expressions naming SDKs and hosts) — data; this module only reads files"
+   },
+   {
+    "pattern": "src/sigillum/web/method.html",
+    "reason": "documentation of the method — describes SDKs and switches by name"
+   },
+   {
+    "pattern": "src/tests/",
+    "reason": "test fixtures simulate foreign calls on purpose"
+   },
+   {
+    "pattern": "scripts/",
+    "reason": "research script run once, with internet, to build the community aggregate — never at runtime"
+   },
+   {
+    "pattern": "data/",
+    "reason": "example projects, audit outputs and caches — not part of the runtime"
+   },
+   {
+    "pattern": "docs/",
+    "reason": "pitch deck and video assets"
+   }
+  ],
+  "dependencies": 0
+ },
+ "examined_at": "2026-10-16T06:18:09+00:00",
+ "expires_at": "2027-01-14T06:18:09+00:00",
+ "grade": "A",
+ "label": {
+  "en": "Fully sovereign",
+  "fr": "Pleinement souverain",
+  "de": "Vollständig souverän",
+  "it": "Pienamente sovrano",
+  "rm": "Cumplainamain suveran"
+ },
+ "weakest": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "unknown": [],
+ "questions": [
+  {
+   "q": 1,
+   "key": "model",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q1_LOCAL",
+     "level": "A",
+     "evidence": [
+      "E07",
+      "E08",
+      "E09"
+     ],
+     "params": {
+      "serving": "llama.cpp"
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 2,
+   "key": "data",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q2_NOTHING_LEAVES",
+     "level": "A",
+     "evidence": [
+      "E05",
+      "E06"
+     ],
+     "params": {
+      "files": 19
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 3,
+   "key": "offline",
+   "level": "A",
+   "proof": "reproducible",
+   "reasons": [
+    {
+     "code": "Q3_OFFLINE_PROVEN",
+     "level": "A",
+     "evidence": [
+      "E23",
+      "E24",
+      "E07"
+     ],
+     "params": {}
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 4,
+   "key": "third_parties",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q4_NONE",
+     "level": "A",
+     "evidence": [],
+     "params": {
+      "deps": 0
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 5,
+   "key": "verifiable",
+   "level": "A",
+   "proof": "reproducible",
+   "reasons": [
+    {
+     "code": "Q5_REPRODUCIBLE",
+     "level": "A",
+     "evidence": [
+      "E35",
+      "E32",
+      "E37"
+     ],
+     "params": {
+      "license": "Apache-2.0"
+     }
+    }
+   ],
+   "fixes": []
+  }
+ ],
+ "evidence": [
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 9,
+   "snippet": "@if [ -n \"$$LLM_BASE_URL\" ]; then \\",
+   "detail": "LLM_BASE_URL",
+   "id": "E01"
+  },
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 10,
+   "snippet": "echo \"Sigillum -> Apertus at $$LLM_BASE_URL\"; docker compose up --build sigillum; \\",
+   "detail": "LLM_BASE_URL",
+   "id": "E02"
+  },
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 17,
+   "snippet": "LLM_BASE_URL=http://127.0.0.1:9/v1 docker compose up --build sigillum",
+   "detail": "LLM_BASE_URL",
+   "id": "E03"
+  },
+  {
+   "q": 1,
+   "signal": "CONFIGURABLE_ENDPOINT",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 10,
+   "snippet": "LLM_BASE_URL: ${LLM_BASE_URL:-http://apertus:8081/v1}",
+   "detail": "LLM_BASE_URL",
+   "id": "E04"
+  },
+  {
+   "q": 1,
+   "signal": "LOCAL_ENDPOINT",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 17,
+   "snippet": "LLM_BASE_URL=http://127.0.0.1:9/v1 docker compose up --build sigillum",
+   "host": "127.0.0.1",
+   "operator": "Local machine or private network",
+   "jurisdiction": "LOCAL",
+   "category": "local",
+   "id": "E05"
+  },
+  {
+   "q": 1,
+   "signal": "LOCAL_ENDPOINT",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 10,
+   "snippet": "LLM_BASE_URL: ${LLM_BASE_URL:-http://apertus:8081/v1}",
+   "host": "apertus:8081",
+   "operator": "Local machine or private network",
+   "jurisdiction": "LOCAL",
+   "category": "local",
+   "id": "E06"
+  },
+  {
+   "q": 1,
+   "signal": "LOCAL_SERVING",
+   "kind": "trace",
+   "file": "docker-compose.yml",
+   "line": 19,
+   "snippet": "image: ghcr.io/ggml-org/llama.cpp:server",
+   "detail": "llama.cpp",
+   "id": "E07"
+  },
+  {
+   "q": 1,
+   "signal": "MODEL_OPEN",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 3,
+   "snippet": "MODEL_URL = https://huggingface.co/Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF/resolve/main/apertus-v1.5-8b-text-q4_k_m.gguf",
+   "detail": "apertus",
+   "id": "E08"
+  },
+  {
+   "q": 1,
+   "signal": "MODEL_OPEN",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 4,
+   "snippet": "MODEL     = models/apertus-v1.5-8b-text-q4_k_m.gguf",
+   "detail": "apertus",
+   "id": "E09"
+  },
+  {
+   "q": 1,
+   "signal": "MODEL_OPEN",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 10,
+   "snippet": "echo \"Sigillum -> Apertus at $$LLM_BASE_URL\"; docker compose up --build sigillum; \\",
+   "detail": "Apertus",
+   "id": "E10"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 1,
+   "snippet": "# Sigillum — sovereignty seal for AI tools (Track 2B)",
+   "detail": "SOVEREIGN",
+   "id": "E11"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 3,
+   "snippet": "**Sigillum** asks five questions of any AI project, looks for verifiable evidence behind each answer, and sums it up in one letter from **A** (fully sovereig...",
+   "detail": "SOVEREIGN",
+   "id": "E12"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 45,
+   "snippet": "### Target architecture — (b) air-gapped, also (a) on-premise",
+   "detail": "LOCAL_MODEL",
+   "id": "E13"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 3,
+   "snippet": "A sovereignty seal for AI tools, from A to E, with proof behind every answer.",
+   "detail": "SOVEREIGN",
+   "id": "E14"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 12,
+   "snippet": "\"Sovereign\" is the most used word in European AI and the least verified. A tool can run on an open model and still send its users' questions to a foreign API...",
+   "detail": "SOVEREIGN",
+   "id": "E15"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 45,
+   "snippet": "**(b) Air-gapped**, and therefore also (a) on-premise. Sigillum has zero runtime dependencies (Python standard library), makes no outbound request except to ...",
+   "detail": "LOCAL_MODEL",
+   "id": "E16"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 45,
+   "snippet": "**(b) Air-gapped**, and therefore also (a) on-premise. Sigillum has zero runtime dependencies (Python standard library), makes no outbound request except to ...",
+   "detail": "SOVEREIGN",
+   "id": "E17"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 81,
+   "snippet": "**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction \"*Tout tourne en local : aucune donnée ne sort de l'éc...",
+   "detail": "LOCAL_MODEL",
+   "id": "E18"
+  },
+  {
+   "q": 2,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 8,
+   "snippet": "| 2 | Where does the data go? | nothing leaves, stays in Switzerland, or leaves the country |",
+   "detail": "NO_DATA_EXIT",
+   "id": "E19"
+  },
+  {
+   "q": 2,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 81,
+   "snippet": "- **c) Sovereign Swiss cloud** — on a cloud platform operated in Switzerland, under Swiss jurisdiction, with Swiss data residency.",
+   "detail": "SWISS_HOSTING",
+   "id": "E20"
+  },
+  {
+   "q": 2,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 81,
+   "snippet": "**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction \"*Tout tourne en local : aucune donnée ne sort de l'éc...",
+   "detail": "NO_DATA_EXIT",
+   "id": "E21"
+  },
+  {
+   "q": 2,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 87,
+   "snippet": "**Cost** — deterministic examination: 1.9 s for 26 projects (~70 ms each) on a CPU. With Apertus on 4 CPU cores: ~5–6 minutes per project, CHF 0 marginal cos...",
+   "detail": "NO_DATA_EXIT",
+   "id": "E22"
+  },
+  {
+   "q": 3,
+   "signal": "OFFLINE_TEST",
+   "kind": "artifact",
+   "file": "docker-compose.yml",
+   "line": 27,
+   "snippet": "network_mode: none",
+   "detail": "runs with networking disabled",
+   "id": "E23"
+  },
+  {
+   "q": 3,
+   "signal": "OFFLINE_TEST",
+   "kind": "artifact",
+   "file": "src/sigillum/web/offline.html",
+   "line": 5,
+   "snippet": "<span class=\"type-eyebrow\">make offline-test · docker compose --profile test run offline-test · network_mode: none</span>",
+   "detail": "runs with networking disabled",
+   "id": "E24"
+  },
+  {
+   "q": 3,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 9,
+   "snippet": "| 3 | What happens without internet? | everything works (tested), degraded, or everything stops |",
+   "detail": "OFFLINE",
+   "id": "E25"
+  },
+  {
+   "q": 3,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 45,
+   "snippet": "### Target architecture — (b) air-gapped, also (a) on-premise",
+   "detail": "OFFLINE",
+   "id": "E26"
+  },
+  {
+   "q": 3,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 80,
+   "snippet": "- **b) Air-gapped** — with no external network connection at runtime.",
+   "detail": "OFFLINE",
+   "id": "E27"
+  },
+  {
+   "q": 3,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 12,
+   "snippet": "\"Sovereign\" is the most used word in European AI and the least verified. A tool can run on an open model and still send its users' questions to a foreign API...",
+   "detail": "OFFLINE",
+   "id": "E28"
+  },
+  {
+   "q": 3,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 45,
+   "snippet": "**(b) Air-gapped**, and therefore also (a) on-premise. Sigillum has zero runtime dependencies (Python standard library), makes no outbound request except to ...",
+   "detail": "OFFLINE",
+   "id": "E29"
+  },
+  {
+   "q": 3,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 47,
+   "snippet": "External dependencies — **build time only:** `python:3.12-slim` base image and `git` (Debian packages), `ghcr.io/ggml-org/llama.cpp:server` image, Apertus v1...",
+   "detail": "OFFLINE",
+   "id": "E30"
+  },
+  {
+   "q": 5,
+   "signal": "BUILD_FETCH",
+   "kind": "trace",
+   "file": "Makefile",
+   "line": 3,
+   "snippet": "MODEL_URL = https://huggingface.co/Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF/resolve/main/apertus-v1.5-8b-text-q4_k_m.gguf",
+   "host": "huggingface.co",
+   "operator": "Hugging Face Hub",
+   "jurisdiction": "US",
+   "category": "model-hub",
+   "detail": "fetched at build time, not needed at runtime",
+   "id": "E31"
+  },
+  {
+   "q": 5,
+   "signal": "CONTAINER",
+   "kind": "artifact",
+   "file": "Dockerfile",
+   "line": 0,
+   "detail": "reproducible container build",
+   "id": "E32"
+  },
+  {
+   "q": 5,
+   "signal": "CONTAINER",
+   "kind": "artifact",
+   "file": "docker-compose.yml",
+   "line": 0,
+   "detail": "reproducible container build",
+   "id": "E33"
+  },
+  {
+   "q": 5,
+   "signal": "DOCS",
+   "kind": "artifact",
+   "file": "technical_report.md",
+   "line": 0,
+   "detail": "1 documentation file(s)",
+   "id": "E34"
+  },
+  {
+   "q": 5,
+   "signal": "LICENSE",
+   "kind": "artifact",
+   "file": "LICENSE",
+   "line": 0,
+   "detail": "Apache-2.0",
+   "id": "E35"
+  },
+  {
+   "q": 5,
+   "signal": "SOURCE",
+   "kind": "artifact",
+   "line": 0,
+   "detail": "19 code/config file(s) readable",
+   "id": "E36"
+  },
+  {
+   "q": 5,
+   "signal": "TESTS",
+   "kind": "artifact",
+   "file": "src/tests/test_sigillum.py",
+   "line": 0,
+   "detail": "3 test file(s)",
+   "id": "E37"
+  },
+  {
+   "q": 5,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 148,
+   "snippet": "Please check our Terms & Conditions (6. What you build is open source):",
+   "detail": "OPEN_SOURCE",
+   "id": "E38"
+  },
+  {
+   "q": 5,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "technical_report.md",
+   "line": 116,
+   "snippet": "Code: Apache-2.0. This report and the method: Creative Commons Attribution 4.0 (CC-BY-4.0). All Hack Apertus projects are open-sourced.",
+   "detail": "OPEN_SOURCE",
+   "id": "E39"
+  }
+ ],
+ "gaps": [],
+ "fixes": [],
+ "claims": {
+  "apertus": [],
+  "rejected": 0
+ },
+ "explanations": {
+  "fr": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Le modèle d'IA tourne sur un ordinateur que l'organisation contrôle.",
+     "evidence": [
+      "E07",
+      "E08",
+      "E09"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vos questions ne quittent pas la machine.",
+     "evidence": [
+      "E05",
+      "E06"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Il continue de marcher sans internet, et c'est testé.",
+     "evidence": [
+      "E23",
+      "E24",
+      "E07"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Aucun service tiers ni suivi d'usage n'a été trouvé.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Tout est public, et n'importe qui peut le revérifier.",
+     "evidence": [
+      "E35",
+      "E32",
+      "E37"
+     ]
+    }
+   ]
+  },
+  "de": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Das KI-Modell läuft auf einem Computer, den die Organisation selbst kontrolliert.",
+     "evidence": [
+      "E07",
+      "E08",
+      "E09"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Ihre Fragen verlassen den Rechner nicht.",
+     "evidence": [
+      "E05",
+      "E06"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Es funktioniert auch ohne Internet, und das ist getestet.",
+     "evidence": [
+      "E23",
+      "E24",
+      "E07"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Es wurde weder ein Drittanbieter noch ein Nutzungs-Tracking gefunden.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Alles ist öffentlich und kann von allen nachgeprüft werden.",
+     "evidence": [
+      "E35",
+      "E32",
+      "E37"
+     ]
+    }
+   ]
+  },
+  "it": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il modello di IA gira su un computer controllato dall'organizzazione.",
+     "evidence": [
+      "E07",
+      "E08",
+      "E09"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Le vostre domande non lasciano il computer.",
+     "evidence": [
+      "E05",
+      "E06"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Continua a funzionare senza internet, ed è testato.",
+     "evidence": [
+      "E23",
+      "E24",
+      "E07"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Non è stato trovato nessun servizio terzo né tracciamento d'uso.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Tutto è pubblico e chiunque può ricontrollarlo.",
+     "evidence": [
+      "E35",
+      "E32",
+      "E37"
+     ]
+    }
+   ]
+  },
+  "rm": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il model d'IA funcziuna sin in computer che l'organisaziun controllescha.",
+     "evidence": [
+      "E07",
+      "E08",
+      "E09"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Vossas dumondas na bandunan betg il computer.",
+     "evidence": [
+      "E05",
+      "E06"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "El funcziuna er senza internet, e quai è testà.",
+     "evidence": [
+      "E23",
+      "E24",
+      "E07"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "I n'è vegnì chattà nagin servetsch da terzs e nagina survegliaziun dal diever.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Tut è public e mintgin po controllar quai danovamain.",
+     "evidence": [
+      "E35",
+      "E32",
+      "E37"
+     ]
+    }
+   ]
+  },
+  "en": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "The AI model runs on a computer the organisation controls.",
+     "evidence": [
+      "E07",
+      "E08",
+      "E09"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Your questions never leave the machine.",
+     "evidence": [
+      "E05",
+      "E06"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "It keeps working without internet, and this is tested.",
+     "evidence": [
+      "E23",
+      "E24",
+      "E07"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "No third-party service or usage tracking was found.",
+     "evidence": []
+    },
+    {
+     "q": 5,
+     "text": "Everything is public, and anyone can re-check it.",
+     "evidence": [
+      "E35",
+      "E32",
+      "E37"
+     ]
+    }
+   ]
+  }
+ },
+ "apertus": {
+  "used": true,
+  "model": "apertus-v1.5-8b",
+  "endpoint": {
+   "host": "127.0.0.1",
+   "jurisdiction": "LOCAL",
+   "operator": "Local machine or private network"
+  },
+  "calls": 1,
+  "seconds": 126.5,
+  "answers_rejected_by_checks": 0,
+  "rejections": []
+ },
+ "seal": {
+  "sha256": "a245e8e9e71e318e5a652ecb3ffa4373e61aa8dd0b7c8d0a7b52df666ff1245a",
+  "id": "a245e8e9e71e"
+ },
+ "id": "sigillum-20261016-061809"
+}

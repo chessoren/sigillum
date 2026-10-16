@@ -1,0 +1,602 @@
+{
+ "sigillum": {
+  "version": "1.0.0",
+  "method": "1.0",
+  "registry": "2026.10.16"
+ },
+ "project": {
+  "name": "assistant-ecole",
+  "commit": null,
+  "files_scanned": 4,
+  "code_files": 3,
+  "excluded": [],
+  "dependencies": 3
+ },
+ "examined_at": "2026-10-16T06:11:19+00:00",
+ "expires_at": "2027-01-14T06:11:19+00:00",
+ "grade": "D",
+ "label": {
+  "en": "Foreign dependencies",
+  "fr": "Dépendances étrangères",
+  "de": "Ausländische Abhängigkeiten",
+  "it": "Dipendenze estere",
+  "rm": "Dependenzas da l'exteriur"
+ },
+ "weakest": [
+  2,
+  3,
+  4
+ ],
+ "unknown": [],
+ "questions": [
+  {
+   "q": 1,
+   "key": "model",
+   "level": "A",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q1_LOCAL",
+     "level": "A",
+     "evidence": [
+      "E01",
+      "E02"
+     ],
+     "params": {
+      "serving": "Transformers (in-process)"
+     }
+    }
+   ],
+   "fixes": []
+  },
+  {
+   "q": 2,
+   "key": "data",
+   "level": "D",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q2_META_FOREIGN",
+     "level": "D",
+     "evidence": [
+      "E04",
+      "E07"
+     ],
+     "params": {
+      "hosts": "cdn.jsdelivr.net (jsDelivr, GLOBAL), data.streamlit.io (Streamlit usage stats, US)"
+     }
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_VENDOR_SCRIPTS",
+     "q": 2,
+     "evidence": [
+      "E04"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 3,
+   "key": "offline",
+   "level": "D",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q3_CDN",
+     "level": "D",
+     "evidence": [
+      "E04"
+     ],
+     "params": {
+      "hosts": "cdn.jsdelivr.net (jsDelivr, GLOBAL)"
+     }
+    },
+    {
+     "code": "Q3_DOWNLOAD",
+     "level": "C",
+     "evidence": [
+      "E06"
+     ],
+     "params": {}
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_VENDOR_SCRIPTS",
+     "q": 3,
+     "evidence": [
+      "E04"
+     ],
+     "params": {}
+    },
+    {
+     "code": "FIX_BAKE_WEIGHTS",
+     "q": 3,
+     "evidence": [
+      "E06"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 4,
+   "key": "third_parties",
+   "level": "D",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q4_TELEMETRY_ON",
+     "level": "D",
+     "evidence": [
+      "E07"
+     ],
+     "params": {
+      "frameworks": "Streamlit"
+     }
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_TELEMETRY_STREAMLIT",
+     "q": 4,
+     "evidence": [
+      "E07"
+     ],
+     "params": {}
+    }
+   ]
+  },
+  {
+   "q": 5,
+   "key": "verifiable",
+   "level": "B",
+   "proof": "trace",
+   "reasons": [
+    {
+     "code": "Q5_PARTIAL",
+     "level": "B",
+     "evidence": [
+      "E09",
+      "E08",
+      "E10"
+     ],
+     "params": {
+      "license": "Apache-2.0"
+     }
+    }
+   ],
+   "fixes": [
+    {
+     "code": "FIX_TESTS",
+     "q": 5,
+     "evidence": [],
+     "params": {}
+    }
+   ]
+  }
+ ],
+ "evidence": [
+  {
+   "q": 1,
+   "signal": "LOCAL_SERVING",
+   "kind": "trace",
+   "file": "app.py",
+   "line": 4,
+   "snippet": "chat = pipeline(\"text-generation\", model=\"swiss-ai/Apertus-v1.5-8B\")",
+   "detail": "Transformers (in-process)",
+   "id": "E01"
+  },
+  {
+   "q": 1,
+   "signal": "MODEL_OPEN",
+   "kind": "trace",
+   "file": "app.py",
+   "line": 4,
+   "snippet": "chat = pipeline(\"text-generation\", model=\"swiss-ai/Apertus-v1.5-8B\")",
+   "detail": "swiss-ai/",
+   "id": "E02"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 4,
+   "snippet": "Tout tourne en local : aucune donnée ne sort de l'école.",
+   "detail": "LOCAL_MODEL",
+   "id": "E03"
+  },
+  {
+   "q": 2,
+   "signal": "HOST",
+   "kind": "trace",
+   "file": "app.py",
+   "line": 7,
+   "snippet": "st.components.v1.html('<script src=\"https://cdn.jsdelivr.net/npm/marked@15.0.4/marked.min.js\"></script>')",
+   "host": "cdn.jsdelivr.net",
+   "operator": "jsDelivr",
+   "jurisdiction": "GLOBAL",
+   "category": "cdn",
+   "id": "E04"
+  },
+  {
+   "q": 2,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 4,
+   "snippet": "Tout tourne en local : aucune donnée ne sort de l'école.",
+   "detail": "NO_DATA_EXIT",
+   "id": "E05"
+  },
+  {
+   "q": 3,
+   "signal": "RUNTIME_DOWNLOAD",
+   "kind": "trace",
+   "file": "app.py",
+   "line": 4,
+   "snippet": "chat = pipeline(\"text-generation\", model=\"swiss-ai/Apertus-v1.5-8B\")",
+   "detail": "model weights fetched at start-up",
+   "id": "E06"
+  },
+  {
+   "q": 4,
+   "signal": "TELEMETRY_DEFAULT_ON",
+   "kind": "trace",
+   "file": "app.py",
+   "line": 1,
+   "snippet": "import streamlit as st",
+   "host": "data.streamlit.io",
+   "operator": "Streamlit usage stats",
+   "jurisdiction": "US",
+   "category": "telemetry",
+   "detail": "Streamlit sends usage statistics by default and no off-switch was found",
+   "id": "E07"
+  },
+  {
+   "q": 5,
+   "signal": "CONTAINER",
+   "kind": "artifact",
+   "file": "Dockerfile",
+   "line": 0,
+   "detail": "reproducible container build",
+   "id": "E08"
+  },
+  {
+   "q": 5,
+   "signal": "LICENSE",
+   "kind": "artifact",
+   "file": "LICENSE",
+   "line": 0,
+   "detail": "Apache-2.0",
+   "id": "E09"
+  },
+  {
+   "q": 5,
+   "signal": "LOCKFILE",
+   "kind": "artifact",
+   "file": "requirements.txt",
+   "line": 0,
+   "detail": "all requirements pinned with ==",
+   "id": "E10"
+  },
+  {
+   "q": 5,
+   "signal": "SOURCE",
+   "kind": "artifact",
+   "line": 0,
+   "detail": "3 code/config file(s) readable",
+   "id": "E11"
+  }
+ ],
+ "gaps": [
+  {
+   "claim": "E05",
+   "tag": "NO_DATA_EXIT",
+   "evidence": [
+    "E04",
+    "E07"
+   ],
+   "source": "rule"
+  },
+  {
+   "claim": "C1",
+   "evidence": [
+    "E04",
+    "E06",
+    "E07"
+   ],
+   "says": "Tout tourne en local : aucune donnée ne sort de l'école.",
+   "shows": "Data is sent to external hosts (cdn.jsdelivr.net, data.streamlit.io) and model weights are fetched from the internet.",
+   "source": "apertus",
+   "dropped_ids": []
+  }
+ ],
+ "fixes": [
+  {
+   "code": "FIX_VENDOR_SCRIPTS",
+   "q": 2,
+   "evidence": [
+    "E04"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_BAKE_WEIGHTS",
+   "q": 3,
+   "evidence": [
+    "E06"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_TELEMETRY_STREAMLIT",
+   "q": 4,
+   "evidence": [
+    "E07"
+   ],
+   "params": {}
+  },
+  {
+   "code": "FIX_TESTS",
+   "q": 5,
+   "evidence": [],
+   "params": {}
+  }
+ ],
+ "claims": {
+  "apertus": [
+   {
+    "id": "C1",
+    "quote": "Tout tourne en local : aucune donnée ne sort de l'école.",
+    "topic": "data_flow",
+    "q": 2
+   }
+  ],
+  "rejected": 0
+ },
+ "explanations": {
+  "fr": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Le modèle d'IA tourne sur un ordinateur que l'organisation contrôle.",
+     "evidence": [
+      "E01",
+      "E02"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Des informations sur votre usage partent à l'étranger.",
+     "evidence": [
+      "E04",
+      "E07"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Sans internet, une partie de l'outil ne se charge plus.",
+     "evidence": [
+      "E04"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Un composant envoie des statistiques d'usage à l'étranger par défaut.",
+     "evidence": [
+      "E07"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Le code est public ; on peut en revérifier la plus grande partie.",
+     "evidence": [
+      "E09",
+      "E08",
+      "E10"
+     ]
+    }
+   ]
+  },
+  "de": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Das KI-Modell läuft auf einem Computer, den die Organisation selbst kontrolliert.",
+     "evidence": [
+      "E01",
+      "E02"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Informationen über Ihre Nutzung gehen ins Ausland.",
+     "evidence": [
+      "E04",
+      "E07"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Ohne Internet lädt ein Teil des Werkzeugs nicht mehr.",
+     "evidence": [
+      "E04"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Eine Komponente sendet standardmässig Nutzungsstatistiken ins Ausland.",
+     "evidence": [
+      "E07"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Der Code ist öffentlich; das meiste lässt sich nachprüfen.",
+     "evidence": [
+      "E09",
+      "E08",
+      "E10"
+     ]
+    }
+   ]
+  },
+  "it": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il modello di IA gira su un computer controllato dall'organizzazione.",
+     "evidence": [
+      "E01",
+      "E02"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Informazioni sul vostro utilizzo vanno all'estero.",
+     "evidence": [
+      "E04",
+      "E07"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Senza internet, una parte dello strumento non si carica più.",
+     "evidence": [
+      "E04"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Un componente invia per impostazione predefinita statistiche d'uso all'estero.",
+     "evidence": [
+      "E07"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Il codice è pubblico; gran parte si può ricontrollare.",
+     "evidence": [
+      "E09",
+      "E08",
+      "E10"
+     ]
+    }
+   ]
+  },
+  "rm": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "Il model d'IA funcziuna sin in computer che l'organisaziun controllescha.",
+     "evidence": [
+      "E01",
+      "E02"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Infurmaziuns davart Voss diever van a l'exteriur.",
+     "evidence": [
+      "E04",
+      "E07"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Senza internet na chargia ina part da l'utensil betg pli.",
+     "evidence": [
+      "E04"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "Ina cumponenta tramet tenor standard statisticas da diever a l'exteriur.",
+     "evidence": [
+      "E07"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "Il code è public; la gronda part sa lascha controllar.",
+     "evidence": [
+      "E09",
+      "E08",
+      "E10"
+     ]
+    }
+   ]
+  },
+  "en": {
+   "source": "apertus-confirmed",
+   "lines": [
+    {
+     "q": 1,
+     "text": "The AI model runs on a computer the organisation controls.",
+     "evidence": [
+      "E01",
+      "E02"
+     ]
+    },
+    {
+     "q": 2,
+     "text": "Information about your use is sent abroad.",
+     "evidence": [
+      "E04",
+      "E07"
+     ]
+    },
+    {
+     "q": 3,
+     "text": "Without internet, part of the tool no longer loads.",
+     "evidence": [
+      "E04"
+     ]
+    },
+    {
+     "q": 4,
+     "text": "A component sends usage statistics abroad by default.",
+     "evidence": [
+      "E07"
+     ]
+    },
+    {
+     "q": 5,
+     "text": "The code is public; most of it can be re-checked.",
+     "evidence": [
+      "E09",
+      "E08",
+      "E10"
+     ]
+    }
+   ]
+  }
+ },
+ "apertus": {
+  "used": true,
+  "model": "apertus-v1.5-8b",
+  "endpoint": {
+   "host": "127.0.0.1",
+   "jurisdiction": "LOCAL",
+   "operator": "Local machine or private network"
+  },
+  "calls": 0,
+  "seconds": 0.0,
+  "answers_rejected_by_checks": 0,
+  "rejections": []
+ },
+ "seal": {
+  "sha256": "8cb4237aacbd4e9a3be25ea4189040a2c71f357255de89cdcf119cc7f100b8f6",
+  "id": "8cb4237aacbd"
+ },
+ "id": "assistant-ecole-20261016-061119"
+}
