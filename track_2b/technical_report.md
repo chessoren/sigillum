@@ -5,7 +5,7 @@ A sovereignty seal for AI tools, from A to E, with proof behind every answer.
 - **Track:** Track 2B — Own Project (Apertus Adoption)
 - **Event:** Hack Apertus — Online, 1–16 October 2026
 - **Team:** Sigillum — Oren
-- **Demo:** `docs/video/sigillum-demo.mp4` (1 min 40 s; French narration, French and English subtitles)
+- **Demo:** `docs/video/sigillum-demo.mp4` (1 min 24 s; English narration in Oren's voice, English subtitles)
 
 ## 1. Summary
 
@@ -70,15 +70,15 @@ Other models: none. No other LLM was used to build, evaluate or judge Sigillum's
 
 | Project | Expected | Sigillum | Key evidence |
 |---|---|---|---|
-| gemeinde-assistent | A | A | llama.cpp service, internal network, offline test, pinned deps |
-| chat-commune | C, Q4 unknown | C, Q4 unknown | configurable endpoint only; minified vendor bundle cannot be audited |
+| municipal-assistant | A | A | llama.cpp service, internal network, offline test, pinned deps |
+| town-hall-chat | C, Q4 unknown | C, Q4 unknown | configurable endpoint only; minified vendor bundle cannot be audited |
 | civicgpt | E | E | OpenAI SDK default endpoint, Mixpanel, Vercel Analytics, Google Fonts, no licence |
-| assistant-ecole v1 | D | D | Streamlit telemetry on by default, CDN script, weights downloaded at start-up |
-| assistant-ecole v2 | B | B | telemetry off, Apertus on llama.cpp, no offline test yet |
+| school-assistant v1 | D | D | Streamlit telemetry on by default, CDN script, weights downloaded at start-up |
+| school-assistant v2 | B | B | telemetry off, Apertus on llama.cpp, no offline test yet |
 | Sigillum itself (1st run) | — | D | no licence file in the project folder (real finding) |
 | Sigillum itself (after fix) | A | A | stdlib only, local Apertus, offline test in Docker |
 
-**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction "*Tout tourne en local : aucune donnée ne sort de l'école*" vs. Streamlit telemetry (US) and a CDN script was found by Apertus with valid evidence IDs, matching the rule-based gap. During development, the checks caught Apertus writing French or German explanations in English, and copying French into Romansh; those lines were rejected and replaced by templates. The final count of calls and rejections is printed in each report (`apertus.calls`, `answers_rejected_by_checks`).
+**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction "*Everything runs locally: no data leaves the school.*" vs. Streamlit telemetry (US) and a CDN script was found by Apertus with valid evidence IDs, matching the rule-based gap. During development, the checks caught Apertus writing French or German explanations in English, and copying French into Romansh; those lines were rejected and replaced by templates. The final count of calls and rejections is printed in each report (`apertus.calls`, `answers_rejected_by_checks`).
 
 **Apertus hallucinating contradictions** — on the A-graded reference project, the first reconciliation run produced four "gaps" whose cited evidence was positive (the local llama.cpp server, the open model name). We now pass Apertus only traces that can contradict a claim (foreign flows, telemetry, runtime downloads, opaque files, closed models) and reject any gap citing other evidence (test `test_gap_citing_positive_evidence_is_impossible`). Rejected answers are logged in each report (`apertus.rejections`) as feedback for the Apertus team.
 

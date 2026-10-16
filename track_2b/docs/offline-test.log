@@ -1,7 +1,7 @@
-# make offline-test — 2026-10-16T06:18:08Z
+# make offline-test — 2026-10-16T07:49:31Z
 # docker compose --profile test run --rm offline-test  (network_mode: none)
- Container track_2b-offline-test-run-73585f42b803 Creating 
- Container track_2b-offline-test-run-73585f42b803 Created 
+ Container track_2b-offline-test-run-c99945e7b53b Creating 
+ Container track_2b-offline-test-run-c99945e7b53b Created 
 test_gap_citing_missing_evidence_is_rejected (test_sigillum.ApertusChecks.test_gap_citing_missing_evidence_is_rejected) ... ok
 test_gap_citing_positive_evidence_is_impossible (test_sigillum.ApertusChecks.test_gap_citing_positive_evidence_is_impossible) ... ok
 test_invented_quote_is_rejected (test_sigillum.ApertusChecks.test_invented_quote_is_rejected) ... ok
@@ -22,29 +22,29 @@ test_seal_is_tamper_evident (test_sigillum.Seal.test_seal_is_tamper_evident) ...
 test_path_outside_allowed_roots_is_refused (test_sigillum.Server.test_path_outside_allowed_roots_is_refused) ... ok
 
 ----------------------------------------------------------------------
-Ran 18 tests in 0.145s
+Ran 18 tests in 0.721s
 
 OK
   · scan
   · grade
   · done
-assistant-ecole-v1: D — Foreign dependencies  [Q1:A Q2:D Q3:D Q4:D Q5:B]  gaps:1  → /tmp/offline/assistant-ecole-v1-20261016-061800.json
+civicgpt: E — Dependent on foreign services  [Q1:E Q2:E Q3:E Q4:E Q5:D]  gaps:1  → /tmp/offline/civicgpt-20261016-074921.json
   · scan
   · grade
   · done
-assistant-ecole-v2: B — Largely sovereign  [Q1:A Q2:A Q3:B Q4:A Q5:A]  gaps:0  → /tmp/offline/assistant-ecole-v2-20261016-061800.json
+municipal-assistant: A — Fully sovereign  [Q1:A Q2:A Q3:A Q4:A Q5:A]  gaps:0  → /tmp/offline/municipal-assistant-20261016-074921.json
   · scan
   · grade
   · done
-chat-commune: C — Partial or unproven  [Q1:C Q2:A Q3:C Q4:? Q5:C]  gaps:0  → /tmp/offline/chat-commune-20261016-061801.json
+school-assistant-v1: D — Foreign dependencies  [Q1:A Q2:D Q3:D Q4:D Q5:B]  gaps:1  → /tmp/offline/school-assistant-v1-20261016-074922.json
   · scan
   · grade
   · done
-civicgpt: E — Dependent on foreign services  [Q1:E Q2:E Q3:E Q4:E Q5:D]  gaps:1  → /tmp/offline/civicgpt-20261016-061801.json
+school-assistant-v2: B — Largely sovereign  [Q1:A Q2:A Q3:B Q4:A Q5:A]  gaps:0  → /tmp/offline/school-assistant-v2-20261016-074922.json
   · scan
   · grade
   · done
-gemeinde-assistent: A — Fully sovereign  [Q1:A Q2:A Q3:A Q4:A Q5:A]  gaps:0  → /tmp/offline/gemeinde-assistent-20261016-061801.json
+town-hall-chat: C — Partial or unproven  [Q1:C Q2:A Q3:C Q4:? Q5:C]  gaps:0  → /tmp/offline/town-hall-chat-20261016-074922.json
 
 # network check inside the same image with --network none:
 urllib.error.URLError: <urlopen error [Errno -3] Temporary failure in name resolution>

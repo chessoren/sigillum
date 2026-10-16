@@ -27,7 +27,7 @@ make test             # unit tests (standard library only)
 make offline-test     # tests + all sample audits inside a container with --network none
 ```
 
-Open http://localhost:8080 — examine a bundled sample (`gemeinde-assistent`, `chat-commune`, `civicgpt`, `assistant-ecole-v1`/`-v2`), any folder mounted under `/audit` (`AUDIT_DIR=/path/to/projects make run`), or a public Git URL.
+Open http://localhost:8080 — examine a bundled sample (`municipal-assistant`, `town-hall-chat`, `civicgpt`, `school-assistant-v1`/`-v2`), any folder mounted under `/audit` (`AUDIT_DIR=/path/to/projects make run`), or a public Git URL.
 
 Command line, without the web interface:
 

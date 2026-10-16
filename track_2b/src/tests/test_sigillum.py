@@ -45,8 +45,8 @@ class Registry(unittest.TestCase):
 
 class Rules(unittest.TestCase):
     def test_samples_expected_grades(self):
-        expected = {"gemeinde-assistent": "A", "chat-commune": "C", "civicgpt": "E",
-                    "assistant-ecole-v1": "D", "assistant-ecole-v2": "B"}
+        expected = {"municipal-assistant": "A", "town-hall-chat": "C", "civicgpt": "E",
+                    "school-assistant-v1": "D", "school-assistant-v2": "B"}
         for name, g in expected.items():
             with self.subTest(name=name):
                 self.assertEqual(grade(scan(SAMPLES / name))["grade"], g)
@@ -70,17 +70,17 @@ class Rules(unittest.TestCase):
         shutil.rmtree(d)
 
     def test_unknown_caps_at_c_and_is_shown(self):
-        g = grade(scan(SAMPLES / "chat-commune"))
+        g = grade(scan(SAMPLES / "town-hall-chat"))
         self.assertEqual(g["questions"][3]["level"], "unknown")
         self.assertIn(4, g["unknown"])
         self.assertEqual(g["grade"], "C")
 
     def test_gap_detected(self):
-        g = grade(scan(SAMPLES / "assistant-ecole-v1"))
+        g = grade(scan(SAMPLES / "school-assistant-v1"))
         self.assertTrue(any(x["tag"] == "NO_DATA_EXIT" for x in g["gaps"]))
 
     def test_telemetry_off_switch_is_recognised(self):
-        sc = scan(SAMPLES / "assistant-ecole-v2")
+        sc = scan(SAMPLES / "school-assistant-v2")
         self.assertTrue(any(e.signal == "TELEMETRY_OFF" for e in sc.evidence))
 
     def test_hyperlink_is_not_a_data_flow(self):
@@ -105,7 +105,7 @@ class Seal(unittest.TestCase):
         self.assertFalse(verify(r))
 
     def test_report_is_dated_and_expires(self):
-        r = audit(str(SAMPLES / "gemeinde-assistent"), llm=None, langs=("rm",))
+        r = audit(str(SAMPLES / "municipal-assistant"), llm=None, langs=("rm",))
         self.assertLess(r["examined_at"], r["expires_at"])
         self.assertEqual(r["explanations"]["rm"]["source"], "template")
 

@@ -1,0 +1,1 @@
+{"model": "apertus-v1.5-8b", "content": "{\n  \"claims\": [\n    {\"quote\": \"An assistant for town hall front desks, hosted in Switzerland: no data ever leaves the country.\", \"topic\": \"data_flow\"},\n    {\"quote\": \"The vendor ships a compiled interface.\", \"topic\": \"offline\"}\n  ]\n}", "at": "2026-10-16T07:44:20"}

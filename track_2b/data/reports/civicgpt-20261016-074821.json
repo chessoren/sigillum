@@ -6,14 +6,14 @@
  },
  "project": {
   "name": "civicgpt",
-  "commit": null,
+  "commit": "25d870586770",
   "files_scanned": 4,
   "code_files": 3,
   "excluded": [],
   "dependencies": 5
  },
- "examined_at": "2026-10-16T06:10:57+00:00",
- "expires_at": "2027-01-14T06:10:57+00:00",
+ "examined_at": "2026-10-16T07:48:21+00:00",
+ "expires_at": "2027-01-14T07:48:21+00:00",
  "grade": "E",
  "label": {
   "en": "Dependent on foreign services",
@@ -391,7 +391,7 @@
  ],
  "claims": {
   "apertus": [],
-  "rejected": 1
+  "rejected": 2
  },
  "explanations": {
   "fr": {
@@ -550,7 +550,7 @@
     },
     {
      "q": 5,
-     "text": "Senza licenza averta na po nagin duvrar il code.",
+     "text": "Senza licenza averta na po nagin duvrar danovamain il code.",
      "evidence": []
     }
    ]
@@ -606,8 +606,13 @@
   },
   "calls": 0,
   "seconds": 0.0,
-  "answers_rejected_by_checks": 1,
+  "answers_rejected_by_checks": 2,
   "rejections": [
+   {
+    "task": "read",
+    "reason": "quote too short",
+    "answer": ""
+   },
    {
     "task": "explain:it",
     "reason": "wrong language",
@@ -616,8 +621,8 @@
   ]
  },
  "seal": {
-  "sha256": "bf1f82108222a1ddcdca63d6f4738c0fb9bb557efbdcae439e8ba28ddb379da9",
-  "id": "bf1f82108222"
+  "sha256": "fe0196fd8f0007015a63c49e69efe1d3d15dd59be8e712127054f86ad9d70e50",
+  "id": "fe0196fd8f00"
  },
- "id": "civicgpt-20261016-061057"
+ "id": "civicgpt-20261016-074821"
 }

@@ -5,15 +5,15 @@
   "registry": "2026.10.16"
  },
  "project": {
-  "name": "assistant-ecole",
-  "commit": null,
+  "name": "school-assistant",
+  "commit": "25d870586770",
   "files_scanned": 4,
   "code_files": 3,
   "excluded": [],
   "dependencies": 3
  },
- "examined_at": "2026-10-16T06:11:19+00:00",
- "expires_at": "2027-01-14T06:11:19+00:00",
+ "examined_at": "2026-10-16T07:48:21+00:00",
+ "expires_at": "2027-01-14T07:48:21+00:00",
  "grade": "D",
  "label": {
   "en": "Foreign dependencies",
@@ -206,7 +206,7 @@
    "kind": "declaration",
    "file": "README.md",
    "line": 4,
-   "snippet": "Tout tourne en local : aucune donnée ne sort de l'école.",
+   "snippet": "Everything runs locally: no data leaves the school.",
    "detail": "LOCAL_MODEL",
    "id": "E03"
   },
@@ -229,7 +229,7 @@
    "kind": "declaration",
    "file": "README.md",
    "line": 4,
-   "snippet": "Tout tourne en local : aucune donnée ne sort de l'école.",
+   "snippet": "Everything runs locally: no data leaves the school.",
    "detail": "NO_DATA_EXIT",
    "id": "E05"
   },
@@ -307,11 +307,10 @@
    "claim": "C1",
    "evidence": [
     "E04",
-    "E06",
     "E07"
    ],
-   "says": "Tout tourne en local : aucune donnée ne sort de l'école.",
-   "shows": "Data is sent to external hosts (cdn.jsdelivr.net, data.streamlit.io) and model weights are fetched from the internet.",
+   "says": "Everything runs locally: no data leaves the school.",
+   "shows": "Traces show data being sent to external services outside the school.",
    "source": "apertus",
    "dropped_ids": []
   }
@@ -352,12 +351,12 @@
   "apertus": [
    {
     "id": "C1",
-    "quote": "Tout tourne en local : aucune donnée ne sort de l'école.",
-    "topic": "data_flow",
-    "q": 2
+    "quote": "Everything runs locally: no data leaves the school.",
+    "topic": "model_location",
+    "q": 1
    }
   ],
-  "rejected": 0
+  "rejected": 1
  },
  "explanations": {
   "fr": {
@@ -591,12 +590,18 @@
   },
   "calls": 0,
   "seconds": 0.0,
-  "answers_rejected_by_checks": 0,
-  "rejections": []
+  "answers_rejected_by_checks": 1,
+  "rejections": [
+   {
+    "task": "reconcile",
+    "reason": "claim or evidence id does not exist",
+    "answer": "{'claim': 'The tool works offline.', 'contradicted': True, 'evidence': ['E06: model weights fetched at start-up [app.py:4]'], 'shows': 'Traces show data being fetched from the internet.'}"
+   }
+  ]
  },
  "seal": {
-  "sha256": "8cb4237aacbd4e9a3be25ea4189040a2c71f357255de89cdcf119cc7f100b8f6",
-  "id": "8cb4237aacbd"
+  "sha256": "d807ad673f23a5347f5f737b4ade05c36f80a3b3245beec0deba10ca16466432",
+  "id": "d807ad673f23"
  },
- "id": "assistant-ecole-20261016-061119"
+ "id": "school-assistant-20261016-074821"
 }

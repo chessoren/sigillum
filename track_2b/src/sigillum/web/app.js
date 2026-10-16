@@ -111,7 +111,7 @@ const UI = {
     commMethod: "Méthode : clone superficiel de chaque Space public, analyse statique uniquement, aucune requête vers les applications en ligne, aucune donnée sur les utilisateurs.",
   },
 };
-let LANG = params.get("lang") || (() => { try { return localStorage.getItem("sigillum-lang"); } catch { return null; } })() || (navigator.language || "en").slice(0, 2);
+let LANG = params.get("lang") || (() => { try { return localStorage.getItem("sigillum-lang"); } catch { return null; } })() || "en";
 if (!UI[LANG]) LANG = "en";
 const T = () => UI[LANG];
 const PLAIN_LANGS = ["fr", "de", "it", "rm", "en"];
@@ -253,13 +253,13 @@ async function pageHome() {
   const input = $("#ask-input");
   input.placeholder = t.askPlaceholder;
   $("#ask-send").setAttribute("aria-label", t.examineBtn);
-  const samples = ["gemeinde-assistent", "chat-commune", "civicgpt", "assistant-ecole"];
-  $("#examples").innerHTML = `<span class="type-label muted" style="align-self:center">${t.try}</span>` + samples.map((s) => `<button class="chip" data-t="${s === "assistant-ecole" ? "assistant-ecole-v1" : s}">${s}</button>`).join("");
+  const samples = ["municipal-assistant", "town-hall-chat", "civicgpt", "school-assistant"];
+  $("#examples").innerHTML = `<span class="type-label muted" style="align-self:center">${t.try}</span>` + samples.map((s) => `<button class="chip" data-t="${s === "school-assistant" ? "school-assistant-v1" : s}">${s}</button>`).join("");
   $$("#examples .chip").forEach((c) => (c.onclick = () => { input.value = c.dataset.t; input.focus(); }));
   $("#ask").onsubmit = (e) => { e.preventDefault(); if (input.value.trim()) runAudit(input.value.trim(), $("#ask-out")); };
 
   // carousel of real seals
-  const deck = ["gemeinde-assistent", "chat-commune", "civicgpt", "assistant-ecole"].map(byName).filter(Boolean);
+  const deck = ["municipal-assistant", "town-hall-chat", "civicgpt", "school-assistant"].map(byName).filter(Boolean);
   let k = 0, playing = true, timer;
   const show = () => {
     if (!deck.length) return;
@@ -284,7 +284,7 @@ async function pageHome() {
   $("#mini").onsubmit = (e) => { e.preventDefault(); const v = $("#mini-input").value.trim(); if (v) { scrollTo({ top: 0, behavior: "smooth" }); input.value = v; runAudit(v, $("#ask-out")); } };
 
   // features
-  const ex = byName("assistant-ecole") || reports[0];
+  const ex = byName("school-assistant") || reports[0];
   const self = byName("sigillum");
   const f = [
     ["f1", `<div class="stars"></div>${ex ? sealCard({ ...ex }, { link: false }).replace('class="seal-card', 'style="transform:scale(.72)" class="seal-card') : ""}`, "media-ink", ex ? `report.html?id=${ex.id}` : "#"],
@@ -304,7 +304,7 @@ async function pageHome() {
   // Apertus section — a real gap from a real report
   $("#ap-title").textContent = t.apTitle;
   $("#ap-body").textContent = t.apBody;
-  const gapRep = reports.find((r) => r.gaps > 0 && r.name === "assistant-ecole") || reports.find((r) => r.gaps > 0);
+  const gapRep = reports.find((r) => r.gaps > 0 && r.name === "school-assistant") || reports.find((r) => r.gaps > 0);
   if (gapRep) {
     const full = await api(`/api/reports/${gapRep.id}`);
     const g = full.gaps.find((x) => x.source === "apertus") || full.gaps[0];
@@ -324,7 +324,7 @@ async function pageHome() {
   $("#self-btn").textContent = t.selfBtn;
   $("#self-btn").href = self ? `report.html?id=${self.id}&lang=${LANG}` : "#";
   const comm = await api("/api/community").catch(() => ({}));
-  const v1 = reports.filter((r) => r.name === "assistant-ecole").sort((a, b) => a.examined_at.localeCompare(b.examined_at));
+  const v1 = reports.filter((r) => r.name === "school-assistant").sort((a, b) => a.examined_at.localeCompare(b.examined_at));
   $("#collage").innerHTML = `
     <div style="display:grid;gap:20px">${self ? sealCard(self) : ""}
       <div class="card"><h4>${esc(t.ethicsTitle)}</h4><ul class="reasons" style="gap:8px">${t.ethics.map((e) => `<li style="font-size:.9rem"><i class="g-A">${icon("check", 'width="14" height="14"')}</i><span>${esc(e)}</span></li>`).join("")}</ul></div></div>
@@ -368,7 +368,7 @@ async function pageReport() {
   document.title = `${r.project.name} · ${r.grade} — Sigillum`;
   const ev = Object.fromEntries(r.evidence.map((e) => [e.id, e]));
   const history = list.filter((x) => x.name === r.project.name).sort((a, b) => a.examined_at.localeCompare(b.examined_at));
-  const isSample = /assistent|commune|civicgpt|ecole/.test(r.project.name);
+  const isSample = /^(municipal-assistant|town-hall-chat|civicgpt|school-assistant)$/.test(r.project.name);
   const evChips = (ids) => ids.map((x) => `<a class="ev" href="#${x}">${x}</a>`).join("");
 
   const plainTabs = PLAIN_LANGS.filter((l) => r.explanations[l]);

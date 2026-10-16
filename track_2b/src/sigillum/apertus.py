@@ -136,20 +136,35 @@ class Apertus:
             {"role": "system", "content": (
                 "You audit software documentation. List the sentences in which the project claims something "
                 "about where its AI model runs, where data goes, offline use, third-party services or tracking, "
-                "or how it can be verified. Copy each sentence exactly as written, without changing a word. "
+                "or how it can be verified — for example sentences saying it runs locally, that no data leaves, "
+                "that it is hosted in Switzerland, that it works offline, that there is no tracking, or that it is "
+                "sovereign. Copy each sentence exactly as written, without changing a word. "
                 "If there is no such sentence, return an empty list. Answer in JSON.")},
             {"role": "user", "content": docs_text[:3500]},
         ]
         try:
             data = self._json(self._chat(msg, schema, 400))
+            if not data.get("claims"):
+                # grammar-constrained decoding sometimes collapses to an empty list on short documents:
+                # ask once more in free JSON; the verbatim check below still applies
+                free = [{"role": "system", "content": msg[0]["content"].replace("Answer in JSON.", "")
+                         + ' Answer only with JSON of the form {"claims":[{"quote":"...","topic":"'
+                         + "|".join(TOPICS) + '"}]}.'}, msg[1]]
+                data = self._json(self._chat(free, None, 400))
         except (ValueError, KeyError, urllib.error.URLError, OSError):
             return [], 0
         doc = _norm(docs_text)
         out, rejected = [], 0
         for c in data.get("claims", []):
             q = (c.get("quote") or "").strip()
+            if c.get("topic") not in TOPICS:  # free-JSON answers may garble the topic: infer it, the quote is what matters
+                t = str(c.get("topic", ""))
+                c["topic"] = next((x for x in TOPICS if x in t), None) or (
+                    "offline" if re.search(r"offline|internet", q, re.I) else
+                    "third_parties" if re.search(r"track|telemetr|analytic|third", q, re.I) else
+                    "model_location" if re.search(r"model|server|hosted|on.prem", q, re.I) else "data_flow")
             if not (len(q) >= 12 and _norm(q)[:200] in doc and c.get("topic") in TOPICS):
-                self.rejections.append({"task": "read", "reason": "quote not found verbatim in the documentation", "answer": q[:200]})
+                self.rejections.append({"task": "read", "reason": "quote not found verbatim in the documentation" if len(q) >= 12 else "quote too short", "answer": q[:200]})
             if len(q) >= 12 and _norm(q)[:200] in doc and c.get("topic") in TOPICS:
                 if all(_norm(q) != _norm(o["quote"]) for o in out):
                     out.append({"id": f"C{len(out) + 1}", "quote": q, "topic": c["topic"], "q": TOPIC_Q[c["topic"]]})
@@ -198,8 +213,9 @@ class Apertus:
             m = re.match(r"\s*(C\d+)\b", str(v.get("claim", "")))
             by_quote = {_norm(c["quote"]): c["id"] for c in claims}
             v["claim"] = m.group(1) if m else by_quote.get(_norm(str(v.get("claim", ""))), v.get("claim"))
-            evs = [x for x in v.get("evidence", []) if x in ids]
-            bogus = [x for x in v.get("evidence", []) if x not in ids]
+            cited = [(re.match(r"\s*(E\d+)\b", str(x)) or re.match(r"(.*)", str(x))).group(1) for x in v.get("evidence", [])]
+            evs = [x for x in cited if x in ids]
+            bogus = [x for x in cited if x not in ids]
             if v.get("claim") in by_id and evs and (v.get("shows") or "").strip():
                 out.append({"claim": v["claim"], "evidence": evs, "says": by_id[v["claim"]]["quote"],
                             "shows": v["shows"].strip(), "source": "apertus", "dropped_ids": bogus})

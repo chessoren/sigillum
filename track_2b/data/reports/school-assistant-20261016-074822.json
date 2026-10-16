@@ -5,29 +5,25 @@
   "registry": "2026.10.16"
  },
  "project": {
-  "name": "gemeinde-assistent",
-  "commit": null,
+  "name": "school-assistant",
+  "commit": "25d870586770",
   "files_scanned": 7,
   "code_files": 6,
   "excluded": [],
-  "dependencies": 3
+  "dependencies": 2
  },
- "examined_at": "2026-10-16T06:10:53+00:00",
- "expires_at": "2027-01-14T06:10:53+00:00",
- "grade": "A",
+ "examined_at": "2026-10-16T07:48:22+00:00",
+ "expires_at": "2027-01-14T07:48:22+00:00",
+ "grade": "B",
  "label": {
-  "en": "Fully sovereign",
-  "fr": "Pleinement souverain",
-  "de": "Vollständig souverän",
-  "it": "Pienamente sovrano",
-  "rm": "Cumplainamain suveran"
+  "en": "Largely sovereign",
+  "fr": "Largement souverain",
+  "de": "Weitgehend souverän",
+  "it": "Ampiamente sovrano",
+  "rm": "Per gronda part suveran"
  },
  "weakest": [
-  1,
-  2,
-  3,
-  4,
-  5
+  3
  ],
  "unknown": [],
  "questions": [
@@ -41,9 +37,9 @@
      "code": "Q1_LOCAL",
      "level": "A",
      "evidence": [
-      "E06",
-      "E07",
-      "E08"
+      "E04",
+      "E05",
+      "E06"
      ],
      "params": {
       "serving": "llama.cpp"
@@ -62,8 +58,7 @@
      "code": "Q2_NOTHING_LEAVES",
      "level": "A",
      "evidence": [
-      "E04",
-      "E05"
+      "E03"
      ],
      "params": {
       "files": 6
@@ -75,21 +70,26 @@
   {
    "q": 3,
    "key": "offline",
-   "level": "A",
-   "proof": "reproducible",
+   "level": "B",
+   "proof": "trace",
    "reasons": [
     {
-     "code": "Q3_OFFLINE_PROVEN",
-     "level": "A",
+     "code": "Q3_OFFLINE_INFERRED",
+     "level": "B",
      "evidence": [
-      "E10",
-      "E11",
-      "E06"
+      "E04"
      ],
      "params": {}
     }
    ],
-   "fixes": []
+   "fixes": [
+    {
+     "code": "FIX_OFFLINE_TEST",
+     "q": 3,
+     "evidence": [],
+     "params": {}
+    }
+   ]
   },
   {
    "q": 4,
@@ -100,9 +100,11 @@
     {
      "code": "Q4_NONE",
      "level": "A",
-     "evidence": [],
+     "evidence": [
+      "E10"
+     ],
      "params": {
-      "deps": 3
+      "deps": 2
      }
     }
    ],
@@ -118,10 +120,10 @@
      "code": "Q5_REPRODUCIBLE",
      "level": "A",
      "evidence": [
+      "E13",
+      "E11",
       "E14",
-      "E12",
-      "E15",
-      "E17"
+      "E16"
      ],
      "params": {
       "license": "Apache-2.0"
@@ -136,9 +138,9 @@
    "q": 1,
    "signal": "CONFIGURABLE_ENDPOINT",
    "kind": "trace",
-   "file": "app/main.py",
+   "file": "app.py",
    "line": 5,
-   "snippet": "LLM_BASE_URL = os.environ[\"LLM_BASE_URL\"]  # e.g. http://apertus:8081/v1 on the municipal server",
+   "snippet": "client = OpenAI(base_url=os.environ[\"LLM_BASE_URL\"], api_key=\"local\")",
    "detail": "LLM_BASE_URL",
    "id": "E01"
   },
@@ -146,47 +148,24 @@
    "q": 1,
    "signal": "CONFIGURABLE_ENDPOINT",
    "kind": "trace",
-   "file": "app/main.py",
-   "line": 11,
-   "snippet": "r = httpx.post(f\"{LLM_BASE_URL}/chat/completions\", json={",
+   "file": "docker-compose.yml",
+   "line": 9,
+   "snippet": "LLM_BASE_URL: http://apertus:8080/v1",
    "detail": "LLM_BASE_URL",
    "id": "E02"
   },
   {
    "q": 1,
-   "signal": "CONFIGURABLE_ENDPOINT",
+   "signal": "LOCAL_ENDPOINT",
    "kind": "trace",
    "file": "docker-compose.yml",
-   "line": 10,
-   "snippet": "LLM_BASE_URL: http://apertus:8081/v1",
-   "detail": "LLM_BASE_URL",
+   "line": 9,
+   "snippet": "LLM_BASE_URL: http://apertus:8080/v1",
+   "host": "apertus:8080",
+   "operator": "Local machine or private network",
+   "jurisdiction": "LOCAL",
+   "category": "local",
    "id": "E03"
-  },
-  {
-   "q": 1,
-   "signal": "LOCAL_ENDPOINT",
-   "kind": "trace",
-   "file": "app/main.py",
-   "line": 5,
-   "snippet": "LLM_BASE_URL = os.environ[\"LLM_BASE_URL\"]  # e.g. http://apertus:8081/v1 on the municipal server",
-   "host": "apertus:8081",
-   "operator": "Local machine or private network",
-   "jurisdiction": "LOCAL",
-   "category": "local",
-   "id": "E04"
-  },
-  {
-   "q": 1,
-   "signal": "LOCAL_ENDPOINT",
-   "kind": "trace",
-   "file": "docker-compose.yml",
-   "line": 10,
-   "snippet": "LLM_BASE_URL: http://apertus:8081/v1",
-   "host": "apertus:8081",
-   "operator": "Local machine or private network",
-   "jurisdiction": "LOCAL",
-   "category": "local",
-   "id": "E05"
   },
   {
    "q": 1,
@@ -196,7 +175,7 @@
    "line": 3,
    "snippet": "image: ghcr.io/ggml-org/llama.cpp:server",
    "detail": "llama.cpp",
-   "id": "E06"
+   "id": "E04"
   },
   {
    "q": 1,
@@ -206,7 +185,7 @@
    "line": 2,
    "snippet": "apertus:",
    "detail": "apertus",
-   "id": "E07"
+   "id": "E05"
   },
   {
    "q": 1,
@@ -214,39 +193,49 @@
    "kind": "trace",
    "file": "docker-compose.yml",
    "line": 4,
-   "snippet": "command: [\"-m\", \"/models/apertus-v1.5-8b-text-q4_k_m.gguf\", \"--host\", \"0.0.0.0\", \"--port\", \"8081\"]",
+   "snippet": "command: [\"-m\", \"/models/apertus-v1.5-8b-text-q4_k_m.gguf\", \"--host\", \"0.0.0.0\"]",
    "detail": "apertus",
-   "id": "E08"
+   "id": "E06"
   },
   {
    "q": 1,
    "signal": "MODEL_OPEN",
    "kind": "trace",
    "file": "docker-compose.yml",
-   "line": 10,
-   "snippet": "LLM_BASE_URL: http://apertus:8081/v1",
+   "line": 9,
+   "snippet": "LLM_BASE_URL: http://apertus:8080/v1",
    "detail": "apertus",
+   "id": "E07"
+  },
+  {
+   "q": 1,
+   "signal": "SDK_OVERRIDDEN",
+   "kind": "trace",
+   "file": "app.py",
+   "line": 3,
+   "snippet": "from openai import OpenAI",
+   "detail": "OpenAI SDK pointed at a configurable endpoint",
+   "id": "E08"
+  },
+  {
+   "q": 1,
+   "signal": "CLAIM",
+   "kind": "declaration",
+   "file": "README.md",
+   "line": 5,
+   "snippet": "interface no longer uses a CDN. Everything runs locally.",
+   "detail": "LOCAL_MODEL",
    "id": "E09"
   },
   {
-   "q": 3,
-   "signal": "OFFLINE_TEST",
-   "kind": "artifact",
-   "file": "Makefile",
+   "q": 4,
+   "signal": "TELEMETRY_OFF",
+   "kind": "trace",
+   "file": "app.py",
    "line": 2,
-   "snippet": "docker compose up -d && docker run --rm --network none app pytest tests/",
-   "detail": "runs with networking disabled",
+   "snippet": "gatherUsageStats = false",
+   "detail": "Streamlit telemetry explicitly disabled",
    "id": "E10"
-  },
-  {
-   "q": 3,
-   "signal": "OFFLINE_TEST",
-   "kind": "artifact",
-   "file": "docker-compose.yml",
-   "line": 16,
-   "snippet": "internal: true",
-   "detail": "runs with networking disabled",
-   "id": "E11"
   },
   {
    "q": 5,
@@ -255,7 +244,7 @@
    "file": "Dockerfile",
    "line": 0,
    "detail": "reproducible container build",
-   "id": "E12"
+   "id": "E11"
   },
   {
    "q": 5,
@@ -264,7 +253,7 @@
    "file": "docker-compose.yml",
    "line": 0,
    "detail": "reproducible container build",
-   "id": "E13"
+   "id": "E12"
   },
   {
    "q": 5,
@@ -273,7 +262,7 @@
    "file": "LICENSE",
    "line": 0,
    "detail": "Apache-2.0",
-   "id": "E14"
+   "id": "E13"
   },
   {
    "q": 5,
@@ -282,7 +271,7 @@
    "file": "requirements.txt",
    "line": 0,
    "detail": "all requirements pinned with ==",
-   "id": "E15"
+   "id": "E14"
   },
   {
    "q": 5,
@@ -290,45 +279,52 @@
    "kind": "artifact",
    "line": 0,
    "detail": "6 code/config file(s) readable",
-   "id": "E16"
+   "id": "E15"
   },
   {
    "q": 5,
    "signal": "TESTS",
    "kind": "artifact",
-   "file": "tests/test_offline.py",
+   "file": "tests/test_app.py",
    "line": 0,
    "detail": "1 test file(s)",
-   "id": "E17"
+   "id": "E16"
   }
  ],
  "gaps": [],
- "fixes": [],
+ "fixes": [
+  {
+   "code": "FIX_OFFLINE_TEST",
+   "q": 3,
+   "evidence": [],
+   "params": {}
+  }
+ ],
  "claims": {
   "apertus": [
    {
     "id": "C1",
-    "quote": "Answers residents' questions about municipal services with Apertus, served on the municipality's own server.",
+    "quote": "Apertus runs on the school's server (llama.cpp)",
     "topic": "model_location",
     "q": 1
    },
    {
     "id": "C2",
-    "quote": "Runs fully offline; see `make offline-test`.",
-    "topic": "offline",
-    "q": 3
+    "quote": "Streamlit telemetry is switched off",
+    "topic": "third_parties",
+    "q": 4
    },
    {
     "id": "C3",
-    "quote": "see `make offline-test`",
-    "topic": "offline",
-    "q": 3
+    "quote": "the interface no longer uses a CDN",
+    "topic": "third_parties",
+    "q": 4
    },
    {
     "id": "C4",
-    "quote": "municipality's own server",
-    "topic": "model_location",
-    "q": 1
+    "quote": "Everything runs locally",
+    "topic": "offline",
+    "q": 3
    }
   ],
   "rejected": 0
@@ -341,41 +337,40 @@
      "q": 1,
      "text": "Le modèle d'IA tourne sur un ordinateur que l'organisation contrôle.",
      "evidence": [
-      "E06",
-      "E07",
-      "E08"
+      "E04",
+      "E05",
+      "E06"
      ]
     },
     {
      "q": 2,
      "text": "Vos questions ne quittent pas la machine.",
      "evidence": [
-      "E04",
-      "E05"
+      "E03"
      ]
     },
     {
      "q": 3,
-     "text": "Il continue de marcher sans internet, et c'est testé.",
+     "text": "Il devrait marcher sans internet, mais aucun test ne le prouve encore.",
      "evidence": [
-      "E10",
-      "E11",
-      "E06"
+      "E04"
      ]
     },
     {
      "q": 4,
      "text": "Aucun service tiers ni suivi d'usage n'a été trouvé.",
-     "evidence": []
+     "evidence": [
+      "E10"
+     ]
     },
     {
      "q": 5,
      "text": "Tout est public, et n'importe qui peut le revérifier.",
      "evidence": [
+      "E13",
+      "E11",
       "E14",
-      "E12",
-      "E15",
-      "E17"
+      "E16"
      ]
     }
    ]
@@ -387,41 +382,40 @@
      "q": 1,
      "text": "Das KI-Modell läuft auf einem Computer, den die Organisation selbst kontrolliert.",
      "evidence": [
-      "E06",
-      "E07",
-      "E08"
+      "E04",
+      "E05",
+      "E06"
      ]
     },
     {
      "q": 2,
      "text": "Ihre Fragen verlassen den Rechner nicht.",
      "evidence": [
-      "E04",
-      "E05"
+      "E03"
      ]
     },
     {
      "q": 3,
-     "text": "Es funktioniert auch ohne Internet, und das ist getestet.",
+     "text": "Es sollte ohne Internet funktionieren, aber noch beweist es kein Test.",
      "evidence": [
-      "E10",
-      "E11",
-      "E06"
+      "E04"
      ]
     },
     {
      "q": 4,
      "text": "Es wurde weder ein Drittanbieter noch ein Nutzungs-Tracking gefunden.",
-     "evidence": []
+     "evidence": [
+      "E10"
+     ]
     },
     {
      "q": 5,
      "text": "Alles ist öffentlich und kann von allen nachgeprüft werden.",
      "evidence": [
+      "E13",
+      "E11",
       "E14",
-      "E12",
-      "E15",
-      "E17"
+      "E16"
      ]
     }
    ]
@@ -433,41 +427,40 @@
      "q": 1,
      "text": "Il modello di IA gira su un computer controllato dall'organizzazione.",
      "evidence": [
-      "E06",
-      "E07",
-      "E08"
+      "E04",
+      "E05",
+      "E06"
      ]
     },
     {
      "q": 2,
      "text": "Le vostre domande non lasciano il computer.",
      "evidence": [
-      "E04",
-      "E05"
+      "E03"
      ]
     },
     {
      "q": 3,
-     "text": "Continua a funzionare senza internet, ed è testato.",
+     "text": "Dovrebbe funzionare senza internet, ma nessun test lo dimostra ancora.",
      "evidence": [
-      "E10",
-      "E11",
-      "E06"
+      "E04"
      ]
     },
     {
      "q": 4,
      "text": "Non è stato trovato nessun servizio terzo né tracciamento d'uso.",
-     "evidence": []
+     "evidence": [
+      "E10"
+     ]
     },
     {
      "q": 5,
      "text": "Tutto è pubblico e chiunque può ricontrollarlo.",
      "evidence": [
+      "E13",
+      "E11",
       "E14",
-      "E12",
-      "E15",
-      "E17"
+      "E16"
      ]
     }
    ]
@@ -479,41 +472,40 @@
      "q": 1,
      "text": "Il model d'IA funcziuna sin in computer che l'organisaziun controllescha.",
      "evidence": [
-      "E06",
-      "E07",
-      "E08"
+      "E04",
+      "E05",
+      "E06"
      ]
     },
     {
      "q": 2,
      "text": "Vossas dumondas na bandunan betg il computer.",
      "evidence": [
-      "E04",
-      "E05"
+      "E03"
      ]
     },
     {
      "q": 3,
-     "text": "El funcziuna er senza internet, e quai è testà.",
+     "text": "El duess funcziunar senza internet, ma anc nagin test na cumprova quai.",
      "evidence": [
-      "E10",
-      "E11",
-      "E06"
+      "E04"
      ]
     },
     {
      "q": 4,
      "text": "I n'è vegnì chattà nagin servetsch da terzs e nagina survegliaziun dal diever.",
-     "evidence": []
+     "evidence": [
+      "E10"
+     ]
     },
     {
      "q": 5,
      "text": "Tut è public e mintgin po controllar quai danovamain.",
      "evidence": [
+      "E13",
+      "E11",
       "E14",
-      "E12",
-      "E15",
-      "E17"
+      "E16"
      ]
     }
    ]
@@ -525,41 +517,40 @@
      "q": 1,
      "text": "The AI model runs on a computer the organisation controls.",
      "evidence": [
-      "E06",
-      "E07",
-      "E08"
+      "E04",
+      "E05",
+      "E06"
      ]
     },
     {
      "q": 2,
      "text": "Your questions never leave the machine.",
      "evidence": [
-      "E04",
-      "E05"
+      "E03"
      ]
     },
     {
      "q": 3,
-     "text": "It keeps working without internet, and this is tested.",
+     "text": "It should work without internet, but no test proves it yet.",
      "evidence": [
-      "E10",
-      "E11",
-      "E06"
+      "E04"
      ]
     },
     {
      "q": 4,
      "text": "No third-party service or usage tracking was found.",
-     "evidence": []
+     "evidence": [
+      "E10"
+     ]
     },
     {
      "q": 5,
      "text": "Everything is public, and anyone can re-check it.",
      "evidence": [
+      "E13",
+      "E11",
       "E14",
-      "E12",
-      "E15",
-      "E17"
+      "E16"
      ]
     }
    ]
@@ -579,8 +570,8 @@
   "rejections": []
  },
  "seal": {
-  "sha256": "5f81d01518be794acbfc963141e53089322e5f3e0655637e42c3fc95aad1dd40",
-  "id": "5f81d01518be"
+  "sha256": "370c160ab67c90dfbe4505b4b52215a514efbbe46e9580e5842e37673100fe02",
+  "id": "370c160ab67c"
  },
- "id": "gemeinde-assistent-20261016-061053"
+ "id": "school-assistant-20261016-074822"
 }

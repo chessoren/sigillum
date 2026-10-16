@@ -5,15 +5,15 @@
   "registry": "2026.10.16"
  },
  "project": {
-  "name": "chat-commune",
-  "commit": null,
+  "name": "town-hall-chat",
+  "commit": "25d870586770",
   "files_scanned": 4,
   "code_files": 2,
   "excluded": [],
   "dependencies": 0
  },
- "examined_at": "2026-10-16T06:10:54+00:00",
- "expires_at": "2027-01-14T06:10:54+00:00",
+ "examined_at": "2026-10-16T07:48:21+00:00",
+ "expires_at": "2027-01-14T07:48:21+00:00",
  "grade": "C",
  "label": {
   "en": "Partial or unproven",
@@ -163,7 +163,7 @@
    "kind": "declaration",
    "file": "README.md",
    "line": 3,
-   "snippet": "Exemple fictif. Assistant pour les guichets communaux, hébergé en Suisse :",
+   "snippet": "Fictional example. An assistant for town hall front desks, hosted in Switzerland:",
    "detail": "SWISS_HOSTING",
    "id": "E02"
   },
@@ -173,7 +173,7 @@
    "kind": "declaration",
    "file": "README.md",
    "line": 4,
-   "snippet": "aucune donnée ne quitte le pays. Le fournisseur livre une interface compilée.",
+   "snippet": "no data ever leaves the country. The vendor ships a compiled interface.",
    "detail": "NO_DATA_EXIT",
    "id": "E03"
   },
@@ -212,7 +212,18 @@
    "id": "E07"
   }
  ],
- "gaps": [],
+ "gaps": [
+  {
+   "claim": "C1",
+   "evidence": [
+    "E04"
+   ],
+   "says": "An assistant for town hall front desks, hosted in Switzerland: no data ever leaves the country.",
+   "shows": "The file is minified, preventing inspection and potentially hiding data transmission.",
+   "source": "apertus",
+   "dropped_ids": []
+  }
+ ],
  "fixes": [
   {
    "code": "FIX_LOCAL_RECIPE",
@@ -241,9 +252,15 @@
   "apertus": [
    {
     "id": "C1",
-    "quote": "Exemple fictif. Assistant pour les guichets communaux, hébergé en Suisse : aucune donnée ne quitte le pays.",
+    "quote": "An assistant for town hall front desks, hosted in Switzerland: no data ever leaves the country.",
     "topic": "data_flow",
     "q": 2
+   },
+   {
+    "id": "C2",
+    "quote": "The vendor ships a compiled interface.",
+    "topic": "offline",
+    "q": 3
    }
   ],
   "rejected": 0
@@ -453,14 +470,14 @@
    "jurisdiction": "LOCAL",
    "operator": "Local machine or private network"
   },
-  "calls": 1,
-  "seconds": 3.5,
+  "calls": 0,
+  "seconds": 0.0,
   "answers_rejected_by_checks": 0,
   "rejections": []
  },
  "seal": {
-  "sha256": "be28e16e37f948a7bc151f041ae4b3dbb0ca520771bf30770907f81948570897",
-  "id": "be28e16e37f9"
+  "sha256": "146d1917d8f2b2a2b210e857e79af8bd1697f88155e2946ac02781f19cc1f0a9",
+  "id": "146d1917d8f2"
  },
- "id": "chat-commune-20261016-061054"
+ "id": "town-hall-chat-20261016-074821"
 }

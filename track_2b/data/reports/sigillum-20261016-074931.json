@@ -6,7 +6,7 @@
  },
  "project": {
   "name": "sigillum",
-  "commit": null,
+  "commit": "25d870586770",
   "files_scanned": 23,
   "code_files": 19,
   "excluded": [
@@ -45,8 +45,8 @@
   ],
   "dependencies": 0
  },
- "examined_at": "2026-10-16T06:18:09+00:00",
- "expires_at": "2027-01-14T06:18:09+00:00",
+ "examined_at": "2026-10-16T07:49:31+00:00",
+ "expires_at": "2027-01-14T07:49:31+00:00",
  "grade": "A",
  "label": {
   "en": "Fully sovereign",
@@ -346,7 +346,7 @@
    "kind": "declaration",
    "file": "technical_report.md",
    "line": 81,
-   "snippet": "**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction \"*Tout tourne en local : aucune donnée ne sort de l'éc...",
+   "snippet": "**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction \"*Everything runs locally: no data leaves the school.*...",
    "detail": "LOCAL_MODEL",
    "id": "E18"
   },
@@ -376,7 +376,7 @@
    "kind": "declaration",
    "file": "technical_report.md",
    "line": 81,
-   "snippet": "**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction \"*Tout tourne en local : aucune donnée ne sort de l'éc...",
+   "snippet": "**Apertus checks** (5 reference projects + Sigillum): claims extracted are verbatim; the contradiction \"*Everything runs locally: no data leaves the school.*...",
    "detail": "NO_DATA_EXIT",
    "id": "E21"
   },
@@ -561,8 +561,27 @@
  "gaps": [],
  "fixes": [],
  "claims": {
-  "apertus": [],
-  "rejected": 0
+  "apertus": [
+   {
+    "id": "C1",
+    "quote": "The grade is deterministic and rests on three published rules: the proof rule (a claim without a trace never earns more than C; missing information is shown as unknown and caps the grade at C), the weakest link (the final grade is the worst answer) and a dated, tamper-evident seal (commit, method version, SHA-256 fingerprint, 90-day expiry).",
+    "topic": "verifiability",
+    "q": 5
+   },
+   {
+    "id": "C2",
+    "quote": "Applied to the 26 public Hugging Face Spaces that use Apertus (aggregated, anonymous), no project reaches A or B; 42 % call the model through a foreign service and 73 % ship telemetry on by default.",
+    "topic": "third_parties",
+    "q": 4
+   },
+   {
+    "id": "C3",
+    "quote": "Sigillum examined itself first: D on its first run (no licence file in the project folder), A after the fix, with its limits published.",
+    "topic": "model_location",
+    "q": 1
+   }
+  ],
+  "rejected": 2
  },
  "explanations": {
   "fr": {
@@ -800,13 +819,24 @@
    "operator": "Local machine or private network"
   },
   "calls": 1,
-  "seconds": 126.5,
-  "answers_rejected_by_checks": 0,
-  "rejections": []
+  "seconds": 111.2,
+  "answers_rejected_by_checks": 2,
+  "rejections": [
+   {
+    "task": "read",
+    "reason": "quote not found verbatim in the documentation",
+    "answer": "Apertus does what fixed rules cannot: it extracts what a project claims about itself, sets each claim against the traces and names the contradictions, and writes the verdict in German, French, Italian"
+   },
+   {
+    "task": "read",
+    "reason": "quote not found verbatim in the documentation",
+    "answer": "The architecture runs on one machine, no outbound network."
+   }
+  ]
  },
  "seal": {
-  "sha256": "a245e8e9e71e318e5a652ecb3ffa4373e61aa8dd0b7c8d0a7b52df666ff1245a",
-  "id": "a245e8e9e71e"
+  "sha256": "1952261e330d17892dbe26d93e18a9621f7e890ca24df8a1724e0102fa6f0e39",
+  "id": "1952261e330d"
  },
- "id": "sigillum-20261016-061809"
+ "id": "sigillum-20261016-074931"
 }

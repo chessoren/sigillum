@@ -1,4 +1,4 @@
-# Gemeinde-Assistent (Sigillum example project)
+# Municipal Assistant (Sigillum example project)
 
 Fictional example built by the Sigillum team to illustrate an A seal.
 Answers residents' questions about municipal services with Apertus, served

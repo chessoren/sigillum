@@ -73,8 +73,8 @@ def gap(r):
             + "".join(f'<span class="ev">{i}</span>' for i in g["evidence"]) + '<span>— every ID points to a file and a line</span></div></div>')
 
 
-ae = by.get("assistant-ecole", [])
-v1, v2 = (ae[0], ae[-1]) if len(ae) > 1 else (latest.get("assistant-ecole"),) * 2
+ae = by.get("school-assistant", [])
+v1, v2 = (ae[0], ae[-1]) if len(ae) > 1 else (latest.get("school-assistant"),) * 2
 sig = by.get("sigillum", [])
 self_first, self_last = (sig[0], sig[-1]) if sig else (None, None)
 apertus_reports = [r for r in latest.values() if r.get("apertus", {}).get("used")]
@@ -97,7 +97,7 @@ S(f'''<div class="cover"><div class="cover-l"><div class="brand">{CROSS}<span cl
 <h1 class="type-heading-xl">Sovereign?<br>Prove it.</h1>
 <p class="type-lead">A sovereignty seal for AI tools — from A to E, with proof behind every answer. Built with Apertus, applied to ourselves first.</p>
 <p class="muted small">Sigillum is Latin for “seal”, as Apertus is Latin for “open”.</p></div>
-<div class="cover-r">{seal(latest["gemeinde-assistent"], big=True)}</div></div>''', "shellbg")
+<div class="cover-r">{seal(latest["municipal-assistant"], big=True)}</div></div>''', "shellbg")
 
 # 2 — problem
 S('''<div class="center"><span class="type-eyebrow">The problem</span><h2 class="type-heading-l">Everyone says “sovereign”.<br>Nobody measures it.</h2></div>
@@ -147,7 +147,7 @@ S('<div class="center"><span class="type-eyebrow">Four national languages</span>
   + '</div>')
 
 # 9 — scene 1
-trio = [latest.get(n) for n in ("gemeinde-assistent", "chat-commune", "civicgpt")]
+trio = [latest.get(n) for n in ("municipal-assistant", "town-hall-chat", "civicgpt")]
 S('<div class="center"><span class="type-eyebrow">Scene 1 · a municipal CIO</span><h2 class="type-heading-l">Three vendors say “sovereign”. Two minutes to decide.</h2></div><div class="three seals">'
   + "".join(seal(r) for r in trio if r)
   + '</div><p class="center type-lead" style="margin-top:36px">An A; a C with “unknown” on question 4 — the question to ask that vendor; an E, because the data leaves the country.</p>')
