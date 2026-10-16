@@ -51,6 +51,7 @@ const UI = {
     ethicsNote: "This is an example project created by the Sigillum team.",
     running: "Examining…", steps: { scan: "Reading files", grade: "Grading on evidence", "apertus:claims": "Apertus reads the documentation", "apertus:reconcile": "Apertus compares claims and traces", explain: "Apertus explains" },
     error: "The examination failed", back: "All seals",
+    staticNote: "This is the static demo: it shows real reports for the bundled samples. To examine your own project, clone the repository and run `make run` — Sigillum and Apertus then run on your machine.",
     reportsTitle: "Recent seals", noApertus: "Apertus not reachable: deterministic grade, template explanations.",
     model: "model", endpoint: "endpoint", calls: "calls", rejected: "answers rejected by checks",
     excluded: "Paths excluded by the project (published, not hidden)",
@@ -102,6 +103,7 @@ const UI = {
     ethicsNote: "Projet d'exemple créé par l'équipe Sigillum.",
     running: "Examen en cours…", steps: { scan: "Lecture des fichiers", grade: "Notation sur preuves", "apertus:claims": "Apertus lit la documentation", "apertus:reconcile": "Apertus rapproche affirmations et traces", explain: "Apertus explique" },
     error: "L'examen a échoué", back: "Tous les sceaux",
+    staticNote: "Ceci est la démo statique : elle montre les vrais rapports des exemples fournis. Pour examiner votre propre projet, clonez le dépôt et lancez `make run` — Sigillum et Apertus tournent alors sur votre machine.",
     reportsTitle: "Sceaux récents", noApertus: "Apertus injoignable : note déterministe, explications par gabarit.",
     model: "modèle", endpoint: "point d'accès", calls: "appels", rejected: "réponses rejetées par les contrôles",
     excluded: "Chemins exclus par le projet (publiés, pas cachés)",
@@ -219,8 +221,19 @@ function mountChrome(active, { headerInShell = false } = {}) {
 }
 
 /* ------------------------------------------------------------ audits */
+let STATIC = false;
 async function runAudit(target, out) {
   const t = T();
+  if (STATIC) {
+    // static demo (no Python server): bundled samples open their real report
+    const list = await api("/api/reports").catch(() => []);
+    const name = target.replace(/-v\d+$/, "");
+    const hits = list.filter((r) => r.name === name).sort((a, b) => a.examined_at.localeCompare(b.examined_at));
+    const pick = /-v1$/.test(target) ? hits[0] : hits[hits.length - 1];
+    if (pick) { location.href = `report.html?id=${encodeURIComponent(pick.id)}&lang=${LANG}`; return; }
+    out.innerHTML = `<div class="notice" style="max-width:560px;margin:24px auto 0">${esc(t.staticNote)}</div>`;
+    return;
+  }
   out.innerHTML = `<div class="panel" style="max-width:520px;margin:24px auto 0;text-align:left"><h3 class="type-heading-s">${t.running}</h3><div class="progress" id="prog"></div></div>`;
   const steps = ["scan", "grade", "apertus:claims", "apertus:reconcile", "explain"];
   const draw = (cur) => {
@@ -440,6 +453,7 @@ function pageMethod() {
 /* -------------------------------------------------------------- boot */
 (async () => {
   I18N = await api("/api/i18n").catch(() => null);
+  STATIC = !!(await api("/api/health").catch(() => ({}))).static;
   const page = document.body.dataset.page;
   ({ home: pageHome, report: pageReport, community: pageCommunity, method: pageMethod }[page] || (() => {}))();
 })();

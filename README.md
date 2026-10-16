@@ -4,6 +4,8 @@
 
 *Sigillum* is Latin for "seal", as *Apertus* is Latin for "open".
 
+**Live demo:** https://sigillum-seal.netlify.app (static export of the real reports — run `make run` to examine your own project)
+
 Hack Apertus 2026 · Online · **Track 2B — Own Project** · project root: [`track_2b/`](track_2b/)
 
 ```bash

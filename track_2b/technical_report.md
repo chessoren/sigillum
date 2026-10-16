@@ -5,7 +5,7 @@ A sovereignty seal for AI tools, from A to E, with proof behind every answer.
 - **Track:** Track 2B — Own Project (Apertus Adoption)
 - **Event:** Hack Apertus — Online, 1–16 October 2026
 - **Team:** Sigillum — Oren
-- **Demo:** `docs/video/sigillum-demo.mp4` (1 min 24 s; English narration in Oren's voice, English subtitles)
+- **Demo:** `docs/video/sigillum-demo.mp4` (1 min 43 s; English narration in Oren's voice, English subtitles)
 
 ## 1. Summary
 

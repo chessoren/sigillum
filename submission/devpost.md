@@ -13,6 +13,7 @@ Everyone says "sovereign AI". Nobody measures it. Sigillum grades any AI project
 apertus · apertus-v1.5 · swiss-ai · llama.cpp · gguf · python · python-standard-library · javascript · html · css · docker · docker-compose · json-schema · structured-outputs · hugging-face · static-analysis · sovereign-ai · digital-sovereignty · ai-transparency · privacy · air-gapped · on-premise · open-source · multilingual · romansh
 
 ## "Try it out" links
+- Live demo (static, real reports): https://sigillum-seal.netlify.app
 - Git repository (public): `<YOUR-REPO-URL>` — project root `track_2b/`, `make run`
 - Demo video (≤ 2 min): `<YOUR-VIDEO-URL>` (file: `track_2b/docs/video/sigillum-demo.mp4`)
 
