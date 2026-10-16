@@ -28,3 +28,4 @@ build/
 submission/*.zip
 .netlify
 track_2b/dist/
+submission/*.bundle

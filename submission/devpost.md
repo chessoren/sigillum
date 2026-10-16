@@ -14,7 +14,7 @@ apertus · apertus-v1.5 · swiss-ai · llama.cpp · gguf · python · python-sta
 
 ## "Try it out" links
 - Live demo (static, real reports): https://sigillum-seal.netlify.app
-- Git repository (public): `<YOUR-REPO-URL>` — project root `track_2b/`, `make run`
+- Git repository (public): https://github.com/chessoren/sigillum — project root `track_2b/`, `make run`
 - Demo video (≤ 2 min): `<YOUR-VIDEO-URL>` (file: `track_2b/docs/video/sigillum-demo.mp4`)
 
 ---
